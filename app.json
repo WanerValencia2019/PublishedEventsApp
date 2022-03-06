@@ -8,9 +8,9 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/images/splashApp.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#F4F7FF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -19,13 +19,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.wnaes.publishedevents",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.wnaes.publishedevents",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
