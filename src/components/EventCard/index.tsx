@@ -15,7 +15,7 @@ interface EventCardTypes {
     address: String,
     imgUrl: String
 }
-const monthNames = ["Enerp", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
   "July", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
 ];
 
