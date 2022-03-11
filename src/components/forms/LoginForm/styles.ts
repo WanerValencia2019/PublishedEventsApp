@@ -80,7 +80,6 @@ export default StyleSheet.create({
         fontFamily: fonts.Roboto_500Medium,
         fontWeight: "800",
         fontSize: headers.h4,
-        marginLeft: width * 0.08,
         marginTop: width * .04,
         lineHeight: 34,
         color: Colors.darkBlue,
@@ -88,7 +87,6 @@ export default StyleSheet.create({
     titleSignin: {
         fontFamily: fonts.Roboto_400Regular,
         fontSize: paragraphs.pMedium,
-        marginLeft: width * 0.08,
         fontWeight: "400",
         color: Colors.darkBlueText,
     },
@@ -125,7 +123,6 @@ export default StyleSheet.create({
     containerSocialIcons: {
         display: "flex",
         flexDirection: "row",
-        alignItems: "center",
         justifyContent: "center",
         marginTop: height * 0.01,
     },

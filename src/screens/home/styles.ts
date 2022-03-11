@@ -37,6 +37,11 @@ export default StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         marginTop: height*0.01,
-        paddingLeft: width*0.05,
+        paddingLeft: width*0.04,
+    },
+    wrapperInviteFriend: {
+        marginTop: height * 0.02,
+        marginLeft: width*0.056,
+        marginRight: width*0.05,
     }
 })

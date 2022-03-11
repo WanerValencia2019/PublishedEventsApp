@@ -7,6 +7,8 @@ export default {
   darkGray: "#7B8BB2",
   blue: "#376AED",
   orange: "#F0635A",
+  blueSea: "rgba(0, 248, 255, 0.12)",
+  cyanPrimary: "#00F8FF",
   light: {
     text: '#000',
     background: '#fff',

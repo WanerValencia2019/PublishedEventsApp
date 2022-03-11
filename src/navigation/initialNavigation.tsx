@@ -9,6 +9,7 @@ import { Icon } from 'react-native-elements';
 
 import { View } from '../components/Themed';
 import { useNavigation } from '@react-navigation/native';
+import MapViewScreen from '../screens/mapView';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,12 +20,11 @@ export default function BottomTabs() {
             screenOptions={{
                 headerShown: false,
                 tabBarStyle: {
-                    position: "absolute",
+                    position: "relative",
                     height: 70,
-                    left: 10,
-                    right: 10,
-                    bottom: 15,
-                    borderRadius: 15,
+                    /*left: 10,
+                    right: 10,*/
+                
                 }
             }}
         >
@@ -50,7 +50,7 @@ export default function BottomTabs() {
                 })
                 }
             />
-            <Tab.Screen name="Map" component={NotFoundScreen}
+            <Tab.Screen name="Map" component={MapViewScreen}
                 options={({ navigation, route }) => ({
                     title: 'Mapa',
                     ...tabBarScreenOptions("google-maps")

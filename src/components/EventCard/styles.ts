@@ -20,7 +20,7 @@ export default StyleSheet.create({
     },
     shadowOpacity: 0.58,
     shadowRadius: 16.0,
-    elevation: 24,
+    elevation: 1,
   },
   imageBackground: {
     width: width * 0.6,
@@ -61,7 +61,7 @@ export default StyleSheet.create({
     fontFamily: fonts.Roboto_300Light,
     fontWeight: "400",
     color: Colors.darkGray,
-    fontSize: paragraphs.pSmall,
-    maxWidth: width * 0.56, 
+    fontSize: caption.captionOne + 2,
+    maxWidth: width * 0.55, 
   }
 });

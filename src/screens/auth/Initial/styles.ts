@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet } from "react-native";
-import Colors  from "../../constants/Colors";
-import { fonts, headers, paragraphs } from "../../constants/Texts";
+import Colors  from "../../../constants/Colors";
+import { fonts, headers, paragraphs } from "../../../constants/Texts";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -8,8 +8,8 @@ export default StyleSheet.create({
     root: {
         display: "flex",
         flex: 1,
-        paddingTop: 24,
-        backgroundColor: "white"
+        paddingTop: 34,
+        backgroundColor: "white",
     },
     imgLogo: {
         width: 200
@@ -36,7 +36,6 @@ export default StyleSheet.create({
     },
     wrapperSections: {
         marginTop: height * 0.04,
-      
         backgroundColor: Colors.blue,
         borderTopLeftRadius: 28,
         borderTopRightRadius: 28,
@@ -45,7 +44,6 @@ export default StyleSheet.create({
         borderTopLeftRadius: 28,
         borderTopRightRadius: 28,
         backgroundColor: "white",
-       
     },
     containerLoginForm: {
         marginTop: height * 0.01,

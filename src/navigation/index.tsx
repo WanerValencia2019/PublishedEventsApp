@@ -18,7 +18,7 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
 import LinkingConfiguration from './LinkingConfiguration';
-import Login from '../screens/auth/login';
+import Login from '../screens/auth/Initial';
 import BottomTabs from './initialNavigation';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -40,7 +40,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator initialRouteName='initial'>
-      <Stack.Screen name='auth' component={Login} options={{headerShown: false}}  /> 
+      <Stack.Screen name='auth' component={Login} options={{ headerShown: true, headerBackTitle: "Retroceder", title:"", headerTransparent: true, }} />
       <Stack.Screen name="initial" component={BottomTabs} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>

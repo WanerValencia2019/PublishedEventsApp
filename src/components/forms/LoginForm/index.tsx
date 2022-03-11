@@ -1,9 +1,11 @@
 import React from 'react'
 import { Control, Controller, ControllerProps, RegisterOptions, Resolver, SubmitHandler, useForm } from 'react-hook-form';
-import { Text, TouchableOpacity, View, Tex, TextInput } from 'react-native'
+import { Text, TouchableOpacity, View, TextInput } from 'react-native'
 import { Button, Input, SocialIcon } from 'react-native-elements'
 
 import styles from './styles';
+
+import InputScrollView from 'react-native-input-scroll-view';
 
 interface LoginFormTypes {
     handleLogin: any
@@ -23,11 +25,15 @@ const LoginForm: React.FC<LoginFormTypes> = ({ children, handleLogin }) => {
     });
 
     const submit = (values: LoginValues) => {
-        handleLogin({...values});
+        handleLogin({ ...values });
     }
 
     return (
-        <View style={styles.containerLoginForm}>
+        <InputScrollView style={styles.containerLoginForm}>
+            <View>
+                <Text style={styles.welcomeTitle}>Bienvenido</Text>
+                <Text style={styles.titleSignin}>Inicia sesión con tu cuenta</Text>
+            </View>
             <Input {...register("email", {
                 required: {
                     value: true,
@@ -50,7 +56,14 @@ const LoginForm: React.FC<LoginFormTypes> = ({ children, handleLogin }) => {
                 errorMessage={errors.password?.message}
                 inputStyle={styles.input} containerStyle={styles.password} label="Contraseña" secureTextEntry labelStyle={styles.inputLabel} />
             <Button onPress={handleSubmit(submit)} type='solid' title="Iniciar sesión" titleStyle={styles.buttonTitleStyle} buttonStyle={styles.buttonSignin} containerStyle={styles.containerButton} raised />
-        </View>
+            <TouchableOpacity onPress={() => console.log("Forget password")}>
+                <Text style={styles.forgetPassword}>Olvidaste tu contraseña?</Text>
+            </TouchableOpacity>
+            <Text style={styles.textOtherSignins}>Ingresa con</Text><View style={styles.containerSocialIcons}>
+                <SocialIcon raised onPress={() => console.log("Click facebook")} type='facebook' />
+                <SocialIcon raised onPress={() => console.log("Click google")} light type='google' />
+            </View>
+        </InputScrollView>
     )
 }
 

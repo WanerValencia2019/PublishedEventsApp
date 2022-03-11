@@ -9,6 +9,9 @@ import Navigation from './src/navigation';
 import { persistor, store } from './src/redux';
 
 import AppLoading from 'expo-app-loading';
+
+import 'react-native-gesture-handler';
+
 import {
   useFonts,
   Roboto_100Thin,
