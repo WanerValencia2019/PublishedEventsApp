@@ -10,17 +10,16 @@ import { getAllEvents } from '../../redux/events/actions';
 
 import styles from './styles';
 
-export default function Home() {
+export default function Home(props:any) {
   const dispatch = useAppDispatch();
   const events = useAppSelector((state) => state.events);
 
   useLayoutEffect(() => {
     dispatch(getAllEvents())
   }, [])
-  console.log(events)
   return (
     <ScrollView style={styles.root}>
-      <HeaderHome />
+      <HeaderHome navigation={props.navigation} />
       <View style={styles.wrapperUpcomingEvents}>
         <View style={styles.wrapperUpcomingEventHeader}>
           <Text style={styles.wrapperUpcomingEventTitle}>Próximos eventos</Text>

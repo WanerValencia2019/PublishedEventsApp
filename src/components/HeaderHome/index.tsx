@@ -8,8 +8,9 @@ import styles from './styles';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import Colors from '../../constants/Colors';
 import { Chip, SearchBar } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 
-export default function HeaderHome() {
+export default function HeaderHome({ navigation }: any) {
     const [city, setCity] = useState("current")
 
     const [search, setSearch] = useState("")
@@ -20,11 +21,12 @@ export default function HeaderHome() {
         "#29D697",
         "#46CDFB"
     ]
+    console.log(navigation)
 
     return (
         <View style={styles.root}>
             <View style={styles.topContent}>
-                <MenuIcon width={50} height={20} />
+                <MenuIcon onPress={()=>navigation.openDrawer()} width={50} height={20} />
                 <Picker
                     mode='dialog'
                     style={{ width: 150, marginTop: -20, color: Colors.light.background }}

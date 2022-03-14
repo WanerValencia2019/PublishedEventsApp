@@ -30,10 +30,13 @@ function MapShow(props: any) {
         (async () => {
             try {
                 const { granted } = await Location.requestForegroundPermissionsAsync();
-                if (!granted) return;
-          
+                if (!granted) {
+                    setError("DEBES DAR PERMISOS PARA USAR EL MAPA")
+                    return; 
+                }
+
                 const last: any = await Location.getLastKnownPositionAsync();
-                
+
                 if (last) {
                     const { latitude, longitude, accuracy } = last.coords;
                     const { lonDelta, latDelta } = calcularDelta(
@@ -41,7 +44,7 @@ function MapShow(props: any) {
                         latitude,
                         accuracy
                     );
-    
+
                     setRegion({
                         latitude,
                         longitude,
@@ -50,37 +53,30 @@ function MapShow(props: any) {
                     });
                 }
                 else {
-                  const current: any = await Location.getCurrentPositionAsync();
-                  const { latitude, longitude, accuracy } = last.coords;
-                  const { lonDelta, latDelta } = calcularDelta(
-                    longitude,
-                    latitude,
-                    accuracy
-                );
+      
+                    const current: any = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High });
+                    console.log(" HOLA MUNDO "+current);
+                    const { latitude, longitude, accuracy } = current.coords;
+                    const { lonDelta, latDelta } = calcularDelta(
+                        longitude,
+                        latitude,
+                        accuracy
+                    );
 
-                setRegion({
-                    latitude,
-                    longitude,
-                    latitudeDelta: latDelta,
-                    longitudeDelta: lonDelta
-                });
+                    setRegion({
+                        latitude,
+                        longitude,
+                        latitudeDelta: latDelta,
+                        longitudeDelta: lonDelta
+                    });
                 }
-              } catch (error) {
-                console.log(error);
-              }
+            } catch (error) {
+                console.log("HOLEE "+ error);
+            }
         })();
     }, []);
 
-
-    const onUserPostionChange = (cordinate: any) => {
-        const { latitude, longitude } = cordinate;
-        console.log(`Nuevas coordenadas, lon:${longitude}, lati:${latitude}`);
-        setRegion({
-            ...region,
-            latitude,
-            longitude
-        });
-    };
+    console.log(region)
 
     return (
         <View style={styles.container}>
@@ -95,7 +91,7 @@ function MapShow(props: any) {
                         showsUserLocation={true}
                         initialRegion={region}
                         region={region}
-                        >
+                    >
 
                     </MapView>
                 </>
@@ -107,13 +103,13 @@ function MapShow(props: any) {
 }
 const styles = StyleSheet.create({
     container: {
+        display: "flex",
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
     },
     mapStyle: {
-        width: 360,
+        width,
         height
     }
 });

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "published-events-app",
-    "slug": "published-events-app",
+    "name": "Published Events",
+    "slug": "published-events",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -28,8 +28,17 @@
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
+      "config": {
+        "googleMaps": {
+          "apiKey":"AIzaSyAaUcMpHp4GP__uCD5-O7FO_v5c4nYRmVA"
+        }
+      },
       "package": "com.wnaes.publishedevents",
-      "versionCode": 1
+      "versionCode": 1,
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
