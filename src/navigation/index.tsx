@@ -22,6 +22,7 @@ import Login from '../screens/auth/Initial';
 import BottomTabs from './initialNavigation';
 import DrawerNav from './drawer';
 import Auth from '../screens/auth/Initial';
+import EventDetail from '../screens/eventDetail';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -37,6 +38,11 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
         <Stack.Screen
           name="Drawer"
           component={DrawerNav}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="EventDetailStack"
+          component={EventDetailNavigator}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
@@ -55,6 +61,14 @@ function RootNavigator() {
     <Stack.Navigator initialRouteName='initial'>
       <Stack.Screen name='auth' component={Login} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "", headerTransparent: true, }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+    </Stack.Navigator>
+  );
+}
+
+function EventDetailNavigator () {
+  return (
+    <Stack.Navigator initialRouteName='eventDetail'>
+      <Stack.Screen name='eventDetail' component={EventDetail} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "", headerTransparent: true, }} />
     </Stack.Navigator>
   );
 }

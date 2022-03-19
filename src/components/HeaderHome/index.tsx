@@ -21,7 +21,6 @@ export default function HeaderHome({ navigation }: any) {
         "#29D697",
         "#46CDFB"
     ]
-    console.log(navigation)
 
     return (
         <View style={styles.root}>

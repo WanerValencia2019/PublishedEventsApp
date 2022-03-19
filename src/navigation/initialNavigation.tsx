@@ -10,6 +10,7 @@ import { Icon } from 'react-native-elements';
 import { View } from '../components/Themed';
 import { useNavigation } from '@react-navigation/native';
 import MapViewScreen from '../screens/mapView';
+import Events from '../screens/events';
 
 const Tab = createBottomTabNavigator();
 
@@ -34,7 +35,7 @@ export default function BottomTabs() {
                     ...tabBarScreenOptions("home-circle-outline")
                 })}
             />
-            <Tab.Screen name="Events" component={NotFoundScreen}
+            <Tab.Screen name="Events" component={Events}
                 options={({ navigation, route }) => ({
                     title: 'Eventos',
                     ...tabBarScreenOptions("calendar")

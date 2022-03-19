@@ -5,9 +5,9 @@ import { Axios, AxiosRequestHeaders } from "axios";
 import axios from "axios";
 
 
-const baseURL = "http://192.168.1.8:8000/published_events/api";
+const baseURL = "http://192.168.1.7:8000/published_events/api";
 
-export default function (dispatch: any, token?: string):Axios  {
+export default function (dispatch?: any, token?: string):Axios  {
     const headers: AxiosRequestHeaders = {};
 
     if(token){

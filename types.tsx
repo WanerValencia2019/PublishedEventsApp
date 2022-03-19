@@ -20,6 +20,8 @@ export type RootStackParamList = {
   auth: undefined;
   initial: undefined;
   Drawer: undefined;
+  eventDetail: undefined;
+  EventDetailStack: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
