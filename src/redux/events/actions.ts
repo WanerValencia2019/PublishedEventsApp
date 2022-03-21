@@ -11,7 +11,7 @@ export const getAllEvents = createAsyncThunk(
  async (props,{ dispatch }) => {
     axiosInstance(dispatch).get("/events/list/")
     .then((res: AxiosResponse)=> {
-      const { data } = res.data
+      const { data } = res.data      
       return dispatch({
         type: EventTypes.listEventsSuccess,
         payload: {
@@ -20,7 +20,7 @@ export const getAllEvents = createAsyncThunk(
       });
     })
     .catch((error: AxiosError)=> {
-      console.log( error.response)
+      console.log(error)
       return dispatch({
         type: EventTypes.listEventsFailed,
         payload: {
