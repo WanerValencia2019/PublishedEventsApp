@@ -19,7 +19,7 @@ const Events = () => {
             <ScrollView>
                 {
                     events.list.map((event,i)=>(
-                        <SimpleCard key={i} date={event?.start_date} imageUrl={event?.image?.image} title={event?.title} />
+                        <SimpleCard key={event?.id} id={event?.id} date={event?.start_date} imageUrl={event?.image?.image} title={event?.title} />
                     ))
                 }
             </ScrollView>

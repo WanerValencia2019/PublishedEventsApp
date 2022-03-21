@@ -68,7 +68,7 @@ function RootNavigator() {
 function EventDetailNavigator () {
   return (
     <Stack.Navigator initialRouteName='eventDetail'>
-      <Stack.Screen name='eventDetail' component={EventDetail} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "", headerTransparent: true, }} />
+      <Stack.Screen name='eventDetail' component={EventDetail} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "Detalle de evento", headerTransparent: true, headerTitleStyle:{color: "white"}, headerTintColor:"white" }} />
     </Stack.Navigator>
   );
 }

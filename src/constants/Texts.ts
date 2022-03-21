@@ -5,7 +5,7 @@ const { width } = Dimensions.get("screen");
 export const headers = {
   h1: width * 0.12,
   h2: width * 0.10,
-  h3: width * 0.8,
+  h3: width * 0.08,
   h4: width * 0.06,
   h5: width * 0.045,
 };
