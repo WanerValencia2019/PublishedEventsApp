@@ -27,6 +27,8 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic,
 } from '@expo-google-fonts/roboto';
+import CustomToast from './src/components/Toast';
+import Loading from './src/components/Loading';
 
 
 export default function App() {
@@ -56,6 +58,8 @@ export default function App() {
           <PersistGate persistor={persistor} loading={null}>
             <Navigation colorScheme={colorScheme} />
             <StatusBar />
+            <CustomToast />
+            <Loading />
           </PersistGate>
         </Provider>
       </SafeAreaProvider>

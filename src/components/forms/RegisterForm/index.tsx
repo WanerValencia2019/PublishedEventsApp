@@ -7,40 +7,52 @@ import styles from './styles';
 import InputScrollView from 'react-native-input-scroll-view';
 
 interface RegisterFormTypes {
-    handleLogin: any
+    handleRegister: any
 }
 
-type LoginValues = {
+type RegisterValues = {
     email: string;
     password: string;
-    name: string;
     confirmPassword: string;
-};
+    firstName: string;
+    lastName: string;
+}
 
-const RegisterForm: React.FC<RegisterFormTypes> = ({ children, handleLogin }) => {
-    const { handleSubmit, register, formState: { errors }, control, setValue } = useForm<LoginValues>({
+const RegisterForm: React.FC<RegisterFormTypes> = ({ children, handleRegister }) => {
+    const { handleSubmit, register, formState: { errors }, control, setValue } = useForm<RegisterValues>({
         defaultValues: {
             email: "",
             password: "",
-            name: ""
+            confirmPassword: "",
+            firstName: "",
+            lastName: "",
         }
     });
 
-    const submit = (values: LoginValues) => {
-        handleLogin({ ...values });
+    const submit = (values: RegisterValues) => {
+        handleRegister({ ...values });
     }
 
     return (
         <InputScrollView style={styles.containerRegisterForm}>
-            <Input {...register("name", {
+            <Input {...register("firstName", {
                 required: {
                     value: true,
                     message: "Este campo es requerido"
                 }
             })}
-                onChangeText={(text) => setValue("name", text)}
-                errorMessage={errors.name?.message}
-                inputStyle={styles.input} label="Nombre completo" secureTextEntry labelStyle={styles.inputLabel} />
+                onChangeText={(text) => setValue("firstName", text)}
+                errorMessage={errors.firstName?.message}
+                inputStyle={styles.input} label="Nombre"  labelStyle={styles.inputLabel} />
+             <Input {...register("lastName", {
+                required: {
+                    value: true,
+                    message: "Este campo es requerido"
+                }
+            })}
+                onChangeText={(text) => setValue("lastName", text)}
+                errorMessage={errors.lastName?.message}
+                inputStyle={styles.input} label="Apellidos"  labelStyle={styles.inputLabel} />
             <Input {...register("email", {
                 required: {
                     value: true,

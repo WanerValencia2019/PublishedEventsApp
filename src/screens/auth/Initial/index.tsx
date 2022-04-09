@@ -6,9 +6,10 @@ import Logo from "./../../../../assets/images/Logo.svg";
 import InputScrollView from 'react-native-input-scroll-view';
 import LoginForm from '../../../components/forms/LoginForm';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import { login } from '../../../redux/auth/actions';
+import { login, register } from '../../../redux/auth/actions';
 import RegisterForm from '../../../components/forms/RegisterForm';
 import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 
 type LoginValues = {
@@ -16,14 +17,31 @@ type LoginValues = {
     password: string;
 };
 
+type RegisterValues = {
+    email: string;
+    password: string;
+    confirmPassword: string;
+    firstName: string;
+    lastName: string;
+}
+
 const Auth = () => {
     const dispatch = useAppDispatch();
     const auth = useAppSelector(state => state.auth);
+    const navigation:any = useNavigation();
 
     const [viewActive, setviewActive] = useState<string>("login");
 
     const handleLogin = ({ email, password }: LoginValues) => {
         dispatch(login({ email, password }))
+    }
+
+    const handleRegister = ({ email, password, confirmPassword, firstName, lastName }: RegisterValues) => {
+        dispatch(register({ email, password, firstName, lastName }))
+    }
+
+    if(auth.isAuthenticated && auth.isAuthenticated) {
+        navigation?.navigate("Drawer", { screen: "initial" })
     }
 
     return (
@@ -41,7 +59,7 @@ const Auth = () => {
                 </TouchableOpacity>
             </View>
             <View  style={styles.wrapperForms}>
-                {viewActive === "login" ? <LoginForm handleLogin={handleLogin} /> : <RegisterForm handleLogin={handleLogin} />}
+                {viewActive === "login" ? <LoginForm handleLogin={handleLogin} /> : <RegisterForm handleRegister={handleRegister} />}
             </View>
         </View>
         </ScrollView >

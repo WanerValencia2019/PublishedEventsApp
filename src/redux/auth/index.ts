@@ -1,6 +1,6 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { AuthTypes } from "../actionTypes";
-import { loginSuccessReducer } from "./reducers";
+import { loginSuccessReducer, registerSuccessReducer } from "./reducers";
 
 
 export interface AuthTypeData {
@@ -31,8 +31,10 @@ const registerFailed = createAction<any>(AuthTypes.registerFailed)
 export default createReducer(initialState, (builder)=> {
     builder.addCase(loginSuccess, loginSuccessReducer)
     builder.addCase(loginFailed, (state, action) => {
-        console.log("h")
+        state.isAuthenticated = false
+        state.token = null
     })
+    builder.addCase(registerSuccess, registerSuccessReducer);
 })
 
 

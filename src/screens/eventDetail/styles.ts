@@ -6,6 +6,7 @@ const { width, height } = Dimensions.get("screen")
 
 export default StyleSheet.create({
   root: {
+    backgroundColor: "transparent",
   },
   overlay: {
     position: "absolute",
@@ -15,7 +16,6 @@ export default StyleSheet.create({
     left: 0,
     backgroundColor: "rgba(0,0,0,.9)",
     opacity: 0.3,
-
   },
   title: {
       fontFamily: fonts.Roboto_400Regular,
@@ -54,5 +54,32 @@ export default StyleSheet.create({
     fontWeight: "300",
     fontSize: paragraphs.pLarge,
     color: Colors.darkGray
+  },
+  wrapperBottomView: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    left: 0,
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: "transparent",
+  },
+  buttonBottomView: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    width: width*0.5,
+    backgroundColor: Colors.blue,
+    paddingLeft: 9,
+    paddingTop: 6,
+    paddingBottom: 6,
+    marginBottom: 5,
+    borderRadius: 12,
+  },
+  textBottomButton: {
+    fontFamily: fonts.Roboto_500Medium,
+    fontSize: headers.h5,
+    fontWeight: "500",
+    color: Colors.light.background,
   }
 });

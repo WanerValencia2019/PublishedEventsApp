@@ -18,3 +18,9 @@ export const EventTypes = {
     myEventsSuccess: "auth/my-events-success",
     myEventsFailed: "auth/my-events-failed",
 }
+
+export const ToastTypes = {
+    showToast: "toast/show",
+    hideToast: "toast/hide",
+}
+

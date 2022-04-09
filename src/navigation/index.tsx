@@ -23,6 +23,7 @@ import BottomTabs from './initialNavigation';
 import DrawerNav from './drawer';
 import Auth from '../screens/auth/Initial';
 import EventDetail from '../screens/eventDetail';
+import ShowTicketTypes from "../screens/showTicketTypes";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -69,6 +70,7 @@ function EventDetailNavigator () {
   return (
     <Stack.Navigator initialRouteName='eventDetail'>
       <Stack.Screen name='eventDetail' component={EventDetail} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "Detalle de evento", headerTransparent: true, headerTitleStyle:{color: "white"}, headerTintColor:"white" }} />
+        <Stack.Screen name='eventTicketTypes' component={ShowTicketTypes} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "Entradas disponibles" }} />
     </Stack.Navigator>
   );
 }
