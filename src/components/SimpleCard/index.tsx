@@ -7,6 +7,11 @@ import Img from "./../../../assets/images/img1.png";
 import { Image } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 
+import dayjs from 'dayjs';
+import 'dayjs/locale/es';
+
+dayjs.locale('es');
+
 interface SimpleCardProps {
     imageUrl: string,
     title: string,
@@ -21,7 +26,7 @@ const SimpleCard: React.FC<SimpleCardProps> = ({ imageUrl, title, date, id }) =>
             <View style={styles.root}>
                 <Image style={{ width: 79, height: 92, borderRadius: 8 }} source={imageUrl ? { uri: imageUrl } : Img} />
                 <View style={styles.content}>
-                    <Text style={styles.date}>{new Date(date).toLocaleString()}</Text>
+                    <Text style={styles.date}>{dayjs(date).format("D MMMM [-] dddd [-] h:mm A")}</Text>
                     <Text style={styles.title}>{title}</Text>
                 </View>
             </View>

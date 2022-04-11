@@ -29,6 +29,7 @@ import {
 } from '@expo-google-fonts/roboto';
 import CustomToast from './src/components/Toast';
 import Loading from './src/components/Loading';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 
 export default function App() {
@@ -56,10 +57,12 @@ export default function App() {
       <SafeAreaProvider>
         <Provider store={store}>
           <PersistGate persistor={persistor} loading={null}>
-            <Navigation colorScheme={colorScheme} />
-            <StatusBar />
-            <CustomToast />
-            <Loading />
+            <PaperProvider>
+              <Navigation colorScheme={colorScheme} />
+              <StatusBar />
+              <CustomToast />
+              <Loading />
+            </PaperProvider>
           </PersistGate>
         </Provider>
       </SafeAreaProvider>

@@ -10,6 +10,8 @@ export const AuthTypes = {
     registerSuccess: "auth/register-success",
     registerFailed: "auth/register-failed",
     logout: "auth/logout",
+    loadProfileSuccess: "auth/load-profile-success",
+    loadProfileFailed: "auth/load-profile-failed",
 }
 
 export const EventTypes = {
@@ -17,6 +19,8 @@ export const EventTypes = {
     listEventsFailed: "event/lists-failed",
     myEventsSuccess: "auth/my-events-success",
     myEventsFailed: "auth/my-events-failed",
+    listNearEventsSuccess: "event/list-near-events-success",
+    listNearEventsFailed: "event/list-near-events-failed",
 }
 
 export const ToastTypes = {

@@ -47,7 +47,8 @@ export default StyleSheet.create({
     color: Colors.orange,
     textAlign: "center",
     fontFamily: fonts.Roboto_400Regular,
-    fontSize: caption.captionOne
+    fontSize: caption.captionOne,
+    textTransform: "capitalize",
   },
   textTitle: {
       fontFamily: fonts.Roboto_500Medium,

@@ -5,7 +5,6 @@ import { Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Colors from '../../constants/Colors';
 import { fonts, paragraphs } from '../../constants/Texts';
-import axiosInstance from '../../helpers/axiosInstance';
 
 import Img from "./../../../assets/images/img1.png";
 
@@ -13,12 +12,17 @@ import styles from './styles';
 
 const { width, height } = Dimensions.get("screen");
 
+import dayjs from 'dayjs';
+import 'dayjs/locale/es';
+
+dayjs.locale('es');
+
 interface EventCardTypes {
     id: string,
-    date: String,
-    title: String,
+    date: string,
+    title: string,
     address: String,
-    imgUrl: String,
+    imgUrl: string,
     navigation: any
 }
 const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
@@ -34,8 +38,8 @@ const EventCard: React.FC<EventCardTypes> = ({ id, title, address, date, imgUrl,
                 <ImageBackground borderRadius={12} style={styles.imageBackground} source={imgUrl ? { uri: imgUrl } : Img}>
                     <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                         <View style={styles.wrapperDate}>
-                            <Text style={styles.textDay}>{new Date(date).getDay()}</Text>
-                            <Text style={styles.textMonth}>{monthNames[new Date(date).getMonth() + 1]}</Text>
+                            <Text style={styles.textDay}>{dayjs(date).format('D')}</Text>
+                            <Text style={styles.textMonth}>{dayjs(date).format('MMMM')}</Text>
                         </View>
                         <View style={{ width: 30, height: 30, backgroundColor: Colors.light.background, borderRadius: 6, display: "flex", justifyContent: "center" }}>
                             <Icon color="#EB5757" type='material-community' name='bookmark' />

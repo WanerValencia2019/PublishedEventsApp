@@ -11,6 +11,7 @@ import { View } from '../components/Themed';
 import { useNavigation } from '@react-navigation/native';
 import MapViewScreen from '../screens/mapView';
 import Events from '../screens/events';
+import Profile from '../screens/profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -58,7 +59,7 @@ export default function BottomTabs() {
                 })
                 }
             />
-            <Tab.Screen name="Profile" component={NotFoundScreen}
+            <Tab.Screen name="Profile" component={Profile}
                 options={({ navigation, route }) => ({
                     title: 'Perfil',
                     ...tabBarScreenOptions("account")

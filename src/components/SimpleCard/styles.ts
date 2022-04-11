@@ -23,7 +23,8 @@ export default StyleSheet.create({
         color: Colors.blue,
         fontFamily: fonts.Roboto_400Regular,
         fontWeight: "400",
-        fontSize: paragraphs.pMedium
+        fontSize: paragraphs.pMedium,
+        //textTransform: "capitalize"
     },
     title: {
         marginTop: 5,

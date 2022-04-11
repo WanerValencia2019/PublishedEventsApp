@@ -112,8 +112,8 @@ function MapShow({ events }: any) {
                         followsUserLocation
                         focusable
                         loadingEnabled
-                        minZoomLevel={10}
-                        maxZoomLevel={50}
+                        minZoomLevel={1}
+                        maxZoomLevel={15}
                         showsUserLocation={true}
                         initialRegion={region}
                         region={region}

@@ -1,5 +1,5 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AxiosError, AxiosResponse } from "axios";
+import { createAsyncThunk, Dispatch } from "@reduxjs/toolkit";
+import { AxiosBasicCredentials, AxiosError, AxiosRequestHeaders, AxiosResponse } from "axios";
 import { AppDispatch } from "..";
 import { toastTypeValues } from "../../constants";
 import { AuthTypes } from "../actionTypes";
@@ -112,3 +112,55 @@ export const register = createAsyncThunk(
       .finally(() => dispatch(stopLoading()));
   }
 );
+
+
+interface loadProfileParams {
+  token: string;
+}
+
+export const loadProfile = createAsyncThunk(
+  "auth/register",
+  async ({ token }:loadProfileParams, { dispatch }) => {
+    dispatch(startLoading());
+
+    const headers:AxiosRequestHeaders = {
+       Authorization: `Bearer ${token}`,
+    }
+    
+    axiosInstance(dispatch)
+      .get("/user/profile/",{headers})
+      .then((res: AxiosResponse) => {
+        const { data: { user } } = res.data;
+        return dispatch({
+          type: AuthTypes.loadProfileSuccess,
+          payload: {
+            data: user,
+          },
+        });
+      })
+      .catch((error: AxiosError) => {
+        const { response } = error;        
+        if (error.response?.status === 400) {
+          dispatch(
+            showToast({
+              message: response?.data?.message[0],
+              type: toastTypeValues.error,
+            })
+          );
+        }
+        return dispatch({
+          type: AuthTypes.loadProfileFailed,
+          payload: {
+            message: "Logrado",
+          },
+        });
+      })
+      .finally(() => dispatch(stopLoading()));
+  }
+);
+
+export const logout = () => (dispatch: Dispatch) => {
+  return dispatch({
+    type: AuthTypes.logout,
+  });
+}

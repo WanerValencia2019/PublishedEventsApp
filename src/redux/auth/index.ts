@@ -1,40 +1,50 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { AuthTypes } from "../actionTypes";
-import { loginSuccessReducer, registerSuccessReducer } from "./reducers";
-
+import { loadProfileSuccessReducer, loginSuccessReducer, logoutReducer, registerSuccessReducer } from "./reducers";
 
 export interface AuthTypeData {
-    username: String,
-    firstName: String,
-    lastName: String,
-    email: String,
-    token: any,
-    isAuthenticated: Boolean,
+  user: {
+    username?: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    imageUrl?: string,
+    description?: string,
+  };
+  token: any;
+  isAuthenticated: Boolean;
 }
 
 const initialState: AuthTypeData = {
+  user: {
     username: "",
     firstName: "",
     lastName: "",
     email: "",
-    token: null,
-    isAuthenticated: false
-} 
+  },
+  token: null,
+  isAuthenticated: false,
+};
 
-const loginSuccess = createAction<any>(AuthTypes.loginSuccess)
-const loginFailed = createAction<any>(AuthTypes.loginFailed)
+const loginSuccess = createAction<AuthTypeData>(AuthTypes.loginSuccess);
+const loginFailed = createAction<AuthTypeData>(AuthTypes.loginFailed);
 
-const registerSuccess = createAction<any>(AuthTypes.registerSuccess)
-const registerFailed = createAction<any>(AuthTypes.registerFailed)
+const registerSuccess = createAction<AuthTypeData>(AuthTypes.registerSuccess);
+const registerFailed = createAction<AuthTypeData>(AuthTypes.registerFailed);
 
+const loadProfileSuccess = createAction<AuthTypeData>(AuthTypes.loadProfileSuccess);
+const loadProfileFailed = createAction<AuthTypeData>(AuthTypes.loadProfileFailed);
 
-export default createReducer(initialState, (builder)=> {
-    builder.addCase(loginSuccess, loginSuccessReducer)
-    builder.addCase(loginFailed, (state, action) => {
-        state.isAuthenticated = false
-        state.token = null
-    })
-    builder.addCase(registerSuccess, registerSuccessReducer);
-})
+const logout = createAction<AuthTypeData>(AuthTypes.logout);
 
-
+export default createReducer(initialState, (builder) => {
+  builder.addCase(loginSuccess, loginSuccessReducer);
+  builder.addCase(loginFailed, (state, action) => {
+    state.isAuthenticated = false;
+    state.token = null;
+  });
+  builder.addCase(registerSuccess, registerSuccessReducer);
+  builder.addCase(loadProfileSuccess, loadProfileSuccessReducer);
+  builder.addCase(loadProfileFailed, () => {});
+  builder.addCase(logout, logoutReducer);
+});

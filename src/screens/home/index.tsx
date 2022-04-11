@@ -7,18 +7,52 @@ import HeaderHome from '../../components/HeaderHome';
 import InviteFriends from '../../components/InviteFriends';
 import Colors from '../../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getAllEvents } from '../../redux/events/actions';
+import { getAllEvents, getNearEvents } from '../../redux/events/actions';
+import { calcularDelta } from '../../utils';
+import * as Location from 'expo-location';
 
 import styles from './styles';
 
 export default function Home({ navigation }: any) {
   const dispatch = useAppDispatch();
-  const events = useAppSelector((state) => state.events);
-  const [refreshing, setRefreshing] = useState(false); 
+  const { list, nearEvents } = useAppSelector((state) => state.events);
+  const [refreshing, setRefreshing] = useState(false);
+  const [mapError, setMapError] = useState<string>('');
 
   const getEvents = () => {
     dispatch(getAllEvents())
   }
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { granted } = await Location.requestForegroundPermissionsAsync();
+        if (!granted) {
+          setMapError("DEBES DAR PERMISOS PARA USAR EL MAPA")
+          return;
+        }
+
+        const last: any = await Location.getLastKnownPositionAsync();
+
+        if (last) {
+          const { latitude, longitude } = last.coords;
+          dispatch(getNearEvents({ latitude, longitude }))
+        }
+        else {
+
+          const current: any = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High });
+          const { latitude, longitude, accuracy } = current.coords;
+          
+          dispatch(getNearEvents({ latitude, longitude}))
+
+        }
+      } catch (error) {
+        setMapError("No se pudo obtener la ubicación");
+        console.log("HOLEE " + error);
+      }
+    })();
+  }, []);
+  
 
   useLayoutEffect(() => {
     getEvents()
@@ -38,14 +72,14 @@ export default function Home({ navigation }: any) {
         <View style={styles.wrapperUpcomingEventHeader}>
           <Text style={styles.wrapperUpcomingEventTitle}>Próximos eventos</Text>
           <TouchableOpacity style={{ display: "flex", flexDirection: "row", alignItems: "center", marginRight: 15 }}>
-            <Text onPress={()=>navigation?.navigate("Events")}  style={styles.textSeeAll}>Ver todos</Text>
+            <Text onPress={() => navigation?.navigate("Events")} style={styles.textSeeAll}>Ver todos</Text>
             <Icon type='material-community' color={Colors.darkGray} size={15} name='arrow-right' />
           </TouchableOpacity>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.wrapperEventCards} >
           {
-            events.list.map((event) => (
-              <EventCard key={event?.id} id={event?.id}  navigation={navigation}  title={event?.title} address={event?.address} date={event?.start_date} imgUrl={event?.image?.image} />
+            list.map((event) => (
+              <EventCard key={event?.id} id={event?.id} navigation={navigation} title={event?.title} address={event?.address} date={event?.start_date} imgUrl={event?.image?.image} />
             ))
           }
         </ScrollView>
@@ -57,14 +91,14 @@ export default function Home({ navigation }: any) {
         <View style={styles.wrapperUpcomingEventHeader}>
           <Text style={styles.wrapperUpcomingEventTitle}>Cerca a ti</Text>
           <TouchableOpacity style={{ display: "flex", flexDirection: "row", alignItems: "center", marginRight: 15 }}>
-            <Text onPress={()=>navigation?.navigate("Events")}  style={styles.textSeeAll}>Ver todos</Text>
+            <Text onPress={() => navigation?.navigate("Events")} style={styles.textSeeAll}>Ver todos</Text>
             <Icon type='material-community' color={Colors.darkGray} size={15} name='arrow-right' />
           </TouchableOpacity>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.wrapperEventCards} >
           {
-            events.list.map((event) => (
-              <EventCard key={event?.id} id={event?.id} navigation={navigation}  title={event?.title} address={event?.address} date={event?.start_date} imgUrl={event?.image?.image} />
+            nearEvents?.map((event) => (
+              <EventCard key={event?.id} id={event?.id} navigation={navigation} title={event?.title} address={event?.address} date={event?.start_date} imgUrl={event?.image?.image} />
             ))
           }
         </ScrollView>

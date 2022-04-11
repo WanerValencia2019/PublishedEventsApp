@@ -1,19 +1,24 @@
 import { createAction, createReducer } from "@reduxjs/toolkit"
 import { EventTypes } from "../actionTypes"
-import { listEventsReducer } from "./reducers"
+import { listEventsReducer, listNearEventsReducer } from "./reducers"
 
 
-interface initialType {
-    list: Array<any>
+export interface eventInitialType {
+    list: Array<any>,
+    nearEvents: Array<any>,
 }
 
-const initialState: initialType = {
+const initialState: eventInitialType = {
     list: [],
+    nearEvents: [],
 }
 
-const listEventsAction = createAction<initialType>(EventTypes.listEventsSuccess)
+const listEventsAction = createAction<eventInitialType>(EventTypes.listEventsSuccess)
+const listNearEventsAction = createAction<eventInitialType>(EventTypes.listNearEventsSuccess)
 
 export default createReducer(initialState, (builder)=> {
     builder.addCase(listEventsAction, listEventsReducer)
+    builder.addCase(listNearEventsAction, listNearEventsReducer)
+
 })
 

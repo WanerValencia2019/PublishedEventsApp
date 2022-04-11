@@ -16,7 +16,7 @@ import rootReducer from "./reducers";
 const rootPersistConfig = {
   key: "published_events",
   storage: AsyncStorage,
-  //whitelist: ["auth"],
+  whitelist: ["auth"],
 };
 
 const persistedAuthReducer = persistReducer(rootPersistConfig, rootReducer);

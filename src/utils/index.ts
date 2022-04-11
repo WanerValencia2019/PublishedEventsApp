@@ -23,3 +23,14 @@ export const handleErrorHttp = (err: AxiosError) => {
     }
     return message;
 };
+
+export const calcularDelta = (longitud: any, latitud: any, accuracy: any) => {
+    const oneDegreeOfLongitudMeters = 111.32;
+    const circunference = 40075 / 360;
+    const latDelta = accuracy * (1 / (Math.cos(latitud) * circunference));
+    const lonDelta = accuracy / oneDegreeOfLongitudMeters;
+    return {
+        latDelta,
+        lonDelta
+    };
+};
