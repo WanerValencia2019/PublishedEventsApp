@@ -33,16 +33,16 @@ const Auth = () => {
     const [viewActive, setviewActive] = useState<string>("login");
 
     const handleLogin = ({ email, password }: LoginValues) => {
-        dispatch(login({ email, password }))
+        dispatch(login({ email, password, navigate: navigation?.navigate }));
     }
 
     const handleRegister = ({ email, password, confirmPassword, firstName, lastName }: RegisterValues) => {
-        dispatch(register({ email, password, firstName, lastName }))
+        dispatch(register({ email, password, firstName, lastName, navigate: navigation?.navigate }));
     }
 
-    if(auth.isAuthenticated && auth.isAuthenticated) {
-        navigation?.navigate("Drawer", { screen: "initial" })
-    }
+    // if(auth.isAuthenticated && auth.isAuthenticated) {
+    //     navigation?.navigate("Drawer", { screen: "initial" })
+    // }
 
     return (
         <ScrollView scrollToOverflowEnabled alwaysBounceHorizontal style={styles.root}>
@@ -62,7 +62,7 @@ const Auth = () => {
                 {viewActive === "login" ? <LoginForm handleLogin={handleLogin} /> : <RegisterForm handleRegister={handleRegister} />}
             </View>
         </View>
-        </ScrollView >
+        </ScrollView>
     )
 }
 

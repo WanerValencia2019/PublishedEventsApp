@@ -8,7 +8,7 @@ import Colors from '../../constants/Colors';
 import {ScrollView} from 'react-native-gesture-handler';
 import MapShow from '../../components/MapShow';
 import MapView from 'react-native-maps';
-import MapMarkerEvent from '../../components/MapMarkerEvent';
+import MapMarkerEvent from '../../components/MapShowMarkerEvent';
 
 const {width, height} = Dimensions.get("screen")
 

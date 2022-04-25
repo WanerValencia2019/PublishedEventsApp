@@ -12,6 +12,10 @@ import { useNavigation } from '@react-navigation/native';
 import MapViewScreen from '../screens/mapView';
 import Events from '../screens/events';
 import Profile from '../screens/profile';
+import CreateEvent from '../screens/createEvent';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import EditProfile from '../screens/editProfile';
+import { fonts, headers } from '../constants/Texts';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +30,7 @@ export default function BottomTabs() {
                     height: 70,
                     /*left: 10,
                     right: 10,*/
-                
+
                 }
             }}
         >
@@ -43,12 +47,12 @@ export default function BottomTabs() {
                 })
                 }
             />
-            <Tab.Screen name="AddEvent"  component={NotFoundScreen}
+            <Tab.Screen name="AddEvent" component={CreateEvent}
                 options={({ navigation, route }) => ({
                     ...tabBarScreenOptions("plus-circle-outline", Colors.blue),
                     tabBarButton: CustomBottomComponent,
                     tabBarShowLabel: false,
-                
+
                 })
                 }
             />
@@ -59,7 +63,7 @@ export default function BottomTabs() {
                 })
                 }
             />
-            <Tab.Screen name="Profile" component={Profile}
+            <Tab.Screen name="Profile" component={ProfileStack}
                 options={({ navigation, route }) => ({
                     title: 'Perfil',
                     ...tabBarScreenOptions("account")
@@ -71,7 +75,7 @@ export default function BottomTabs() {
 }
 
 
-const tabBarScreenOptions = (iconName: string, iconColor?:string): BottomTabNavigationOptions => ({
+const tabBarScreenOptions = (iconName: string, iconColor?: string): BottomTabNavigationOptions => ({
     tabBarIcon: ({ color }) => <Icon size={28} type="material-community" name={iconName} color={iconColor || color} />,
     tabBarActiveTintColor: Colors.blue,
     tabBarInactiveTintColor: Colors.darkGray,
@@ -81,17 +85,17 @@ const tabBarScreenOptions = (iconName: string, iconColor?:string): BottomTabNavi
     }
 })
 
-const CustomBottomComponent:React.FC<BottomTabBarButtonProps> = ({ children, onPress, to }) =>{
-    const navigation = useNavigation();
+const CustomBottomComponent: React.FC<BottomTabBarButtonProps> = ({ children, onPress, to }) => {
+    const navigation: any = useNavigation();
     return (
         <TouchableOpacity
-        onPress={()=> navigation.navigate("auth")}
-        style={{
-            top: -30,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-        }}
+            onPress={() => navigation.navigate("AddEvent")}
+            style={{
+                top: -30,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+            }}
         >
             <View style={{
                 width: 50,
@@ -107,3 +111,23 @@ const CustomBottomComponent:React.FC<BottomTabBarButtonProps> = ({ children, onP
         </TouchableOpacity>
     )
 }
+
+const stack = createNativeStackNavigator();
+
+
+const ProfileStack = () => {
+    return (
+        <stack.Navigator initialRouteName="ProfileView" >
+            <stack.Screen name="ProfileView" component={Profile} options={{ headerShown: false }} />
+            <stack.Screen name="EditProfile" component={EditProfile} options={{
+                headerBackTitle: "Regresar", headerTitle: "Mi perfil", headerTitleStyle: {
+                    fontFamily: fonts.Roboto_500Medium,
+                    fontWeight: "500",
+                    fontSize: headers.h5,
+                    color: Colors.darkBlueText,
+                }
+            }} />
+        </stack.Navigator>
+    )
+}
+

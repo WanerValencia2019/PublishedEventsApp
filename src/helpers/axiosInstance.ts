@@ -6,7 +6,7 @@ import axios from "axios";
 
 
 const baseURL = API_URL;
-console.log(baseURL)
+
 export default function (dispatch?: any, token?: string):Axios  {
     const headers: AxiosRequestHeaders = {};
 

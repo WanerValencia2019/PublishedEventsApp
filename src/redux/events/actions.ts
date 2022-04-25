@@ -45,7 +45,9 @@ export const getNearEvents = createAsyncThunk(
     axiosInstance(dispatch).get(`/events/nearby?latitude=${latitude}&longitude=${longitude}`)
     .then((res: AxiosResponse)=> {
       dispatch(startLoading())
-      const { data } = res.data      
+      const { data } = res.data
+      console.log(data);
+            
       return dispatch({
         type: EventTypes.listNearEventsSuccess,
         payload: {

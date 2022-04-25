@@ -1,12 +1,8 @@
 import { AxiosError } from "axios";
 
-export const formatValue = (value: any) =>
-    Intl.NumberFormat('es-CO', {
-        style: 'currency',
-        currency: 'COP',
-        maximumSignificantDigits: 10,
-        notation: 'compact',
-    }).format(value);
+export const formatValue = (value: any) =>{
+    return  '$' + value.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
 
 export const generateString = () =>
     Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);

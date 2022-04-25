@@ -10,6 +10,8 @@ export interface AuthTypeData {
     email: string;
     imageUrl?: string,
     description?: string,
+    identification?: string,
+    image?:string,
   };
   token: any;
   isAuthenticated: Boolean;
@@ -21,6 +23,7 @@ const initialState: AuthTypeData = {
     firstName: "",
     lastName: "",
     email: "",
+    identification: "",
   },
   token: null,
   isAuthenticated: false,

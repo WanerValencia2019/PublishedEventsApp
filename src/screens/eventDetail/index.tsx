@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 
 import styles from './styles';
 import axiosInstance from '../../helpers/axiosInstance';
-import { Button, Icon } from 'react-native-elements';
+import { Button, FAB, Icon } from 'react-native-elements';
 import Colors from '../../constants/Colors';
 import { ScrollView } from 'react-native-gesture-handler';
-import MapMarkerEvent from '../../components/MapMarkerEvent';
+import MapMarkerEvent from '../../components/MapShowMarkerEvent';
 import { useNavigation } from "@react-navigation/native";
 
 
@@ -71,7 +71,7 @@ const EventDetail = (props: any) => {
                             <Icon type='material-community' name='calendar-outline' color={Colors.blue}
                                 style={{ padding: 5 }} />
                             <View>
-                            <Text style={styles.dateText}>{dayjs(event?.end_date).format("DD [de] MMMM, YYYY")}</Text>
+                                <Text style={styles.dateText}>{dayjs(event?.end_date).format("DD [de] MMMM, YYYY")}</Text>
                                 <Text style={styles.timeText}>{dayjs(event?.end_date).format("h:mm A")}</Text>
                             </View>
                         </View>
@@ -96,10 +96,7 @@ const EventDetail = (props: any) => {
                 }
             </ScrollView>
             <View style={styles.wrapperBottomView}>
-                <TouchableOpacity style={styles.buttonBottomView}>
-                    <Text style={styles.textBottomButton}>Reservar entrada</Text>
-                    <Icon reverse type="material-community" name="arrow-right" size={16} color={Colors.darkBlueText} containerStyle={{ marginLeft: 12, marginRight: 5 }} />
-                </TouchableOpacity>
+                <FAB title="Reservar entrada" color={Colors.blue} iconPosition='right' icon={<Icon type='material-community' name='ticket' color={Colors.light.background} />} />
             </View>
         </View>
     )

@@ -18,10 +18,14 @@ export default function Home({ navigation }: any) {
   const { list, nearEvents } = useAppSelector((state) => state.events);
   const [refreshing, setRefreshing] = useState(false);
   const [mapError, setMapError] = useState<string>('');
+  const [longitude, setLongitude] = useState<number>(0);
+  const [latitude, setLatitude] = useState<number>(0);
 
   const getEvents = () => {
     dispatch(getAllEvents())
+    dispatch(getNearEvents({ latitude, longitude }))
   }
+
 
   useEffect(() => {
     (async () => {
@@ -36,13 +40,16 @@ export default function Home({ navigation }: any) {
 
         if (last) {
           const { latitude, longitude } = last.coords;
+          setLatitude(latitude);
+          setLongitude(longitude);
           dispatch(getNearEvents({ latitude, longitude }))
         }
         else {
 
           const current: any = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High });
           const { latitude, longitude, accuracy } = current.coords;
-          
+          setLatitude(latitude);
+          setLongitude(longitude);
           dispatch(getNearEvents({ latitude, longitude}))
 
         }
@@ -52,6 +59,7 @@ export default function Home({ navigation }: any) {
       }
     })();
   }, []);
+
   
 
   useLayoutEffect(() => {

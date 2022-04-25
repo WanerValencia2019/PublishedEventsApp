@@ -57,12 +57,9 @@ export default StyleSheet.create({
   },
   wrapperBottomView: {
     position: "absolute",
-    bottom: 0,
+    bottom: 10,
     right: 0,
     left: 0,
-    display: "flex",
-    alignItems: "center",
-    backgroundColor: "transparent",
   },
   buttonBottomView: {
     display: "flex",

@@ -11,11 +11,12 @@ import axiosInstance from "./../../helpers/axiosInstance";
 interface LoginParams {
   email: String;
   password: String;
+  navigate: any
 }
 
 export const login = createAsyncThunk(
   "auth/login",
-  async ({ email, password }: LoginParams, { dispatch }) => {
+  async ({ email, password, navigate }: LoginParams, { dispatch }) => {
     dispatch(startLoading());
     const data = {
       username: email,
@@ -28,6 +29,7 @@ export const login = createAsyncThunk(
         dispatch(
           showToast({ message: "Bienvenido", type: toastTypeValues.success })
         );
+        navigate("Drawer", { screen: "initial" })
         return dispatch({
           type: AuthTypes.loginSuccess,
           payload: {
@@ -63,15 +65,14 @@ type registerParams = {
   lastName: String,
   email: String,
   password: String,
+  navigate: any
 }
 
 
 export const register = createAsyncThunk(
   "auth/register",
   async (data:registerParams, { dispatch }) => {
-    dispatch(startLoading());
-    console.log(data);
-    
+    dispatch(startLoading());    
     const dataToSend = { 
       first_name: data.firstName,
       last_name: data.lastName,
@@ -85,6 +86,7 @@ export const register = createAsyncThunk(
         dispatch(
           showToast({ message: "Bienvenido a la familia", type: toastTypeValues.success })
         );
+        data?.navigate("Drawer", { screen: "initial" })
         return dispatch({
           type: AuthTypes.registerSuccess,
           payload: {
