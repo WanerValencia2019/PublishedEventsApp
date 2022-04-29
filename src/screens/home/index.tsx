@@ -7,7 +7,7 @@ import HeaderHome from '../../components/HeaderHome';
 import InviteFriends from '../../components/InviteFriends';
 import Colors from '../../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getAllEvents, getNearEvents } from '../../redux/events/actions';
+import { getAllNextEvents, getNearEvents } from '../../redux/events/actions';
 import { calcularDelta } from '../../utils';
 import * as Location from 'expo-location';
 
@@ -15,14 +15,14 @@ import styles from './styles';
 
 export default function Home({ navigation }: any) {
   const dispatch = useAppDispatch();
-  const { list, nearEvents } = useAppSelector((state) => state.events);
+  const { nextEvents, nearEvents, id_log } = useAppSelector((state) => state.events);
   const [refreshing, setRefreshing] = useState(false);
   const [mapError, setMapError] = useState<string>('');
   const [longitude, setLongitude] = useState<number>(0);
   const [latitude, setLatitude] = useState<number>(0);
 
   const getEvents = () => {
-    dispatch(getAllEvents())
+    dispatch(getAllNextEvents())
     dispatch(getNearEvents({ latitude, longitude }))
   }
 
@@ -58,13 +58,12 @@ export default function Home({ navigation }: any) {
         console.log("HOLEE " + error);
       }
     })();
-  }, []);
-
+  }, [id_log]);
   
 
   useLayoutEffect(() => {
     getEvents()
-  }, [])
+  }, [id_log])
 
   return (
     <ScrollView style={styles.root}
@@ -86,7 +85,7 @@ export default function Home({ navigation }: any) {
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.wrapperEventCards} >
           {
-            list.map((event) => (
+            nextEvents.map((event) => (
               <EventCard key={event?.id} id={event?.id} navigation={navigation} title={event?.title} address={event?.address} date={event?.start_date} imgUrl={event?.image?.image} />
             ))
           }

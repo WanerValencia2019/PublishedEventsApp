@@ -78,13 +78,10 @@ function MapMarker(props:any) {
             console.log("HOLEE " + error);
         }
     })();
-  }, []);
+  }, [marker]);
 
   const ponerMarcador = (coordinate: any) => {
-    setmarker([{ coordinate, inicio: region }]);
-    //console.log(marker);
-    const marcador = marker[0];
-    console.log(marcador);
+    setmarker([{ coordinate }]);
   };
 
 
@@ -96,10 +93,11 @@ function MapMarker(props:any) {
             style={styles.mapStyle}
             loadingEnabled
             minZoomLevel={1}
-            maxZoomLevel={50}
+            maxZoomLevel={20}
             showsUserLocation={true}
             initialRegion={region}
-            region={region}
+            //region={region}
+            removeClippedSubviews={true}
             onPress={(e) => {
               ponerMarcador(e.nativeEvent.coordinate);
             }}>

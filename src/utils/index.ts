@@ -1,10 +1,11 @@
 import { AxiosError } from "axios";
 
 export const formatValue = (value: any) =>{
-    return  '$' + value.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    let valueC = Number(value);
+    return  '$' + valueC.toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 }
 
-export const generateString = () =>
+export const generateString = ():string =>
     Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
 export const handleErrorHttp = (err: AxiosError) => {

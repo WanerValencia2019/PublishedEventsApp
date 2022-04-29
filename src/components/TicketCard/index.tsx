@@ -12,12 +12,12 @@ interface TicketCardProps {
     isFree?: boolean,
 }
 
-const TicketCard: React.FC<TicketCardProps> = ({ description, isFree = false, name, price = 0 }) => {
+const TicketCard: React.FC<TicketCardProps> = ({ description="", isFree = false, name="", price = 0 }) => {
     return (
         <TouchableOpacity>
             <Card containerStyle={styles.cardContainer}>
-                <Text style={styles.name}>Palco v2</Text>
-                <Text style={styles.description}>Disfrutarás de la mejor compañia</Text>
+                <Text style={styles.name}>{name}</Text>
+                <Text style={styles.description}>{description}</Text>
                 <Text style={isFree ? styles.freePrice:styles.price}>{isFree ? "GRATIS": formatValue(price)}</Text>
             </Card>
         </TouchableOpacity>

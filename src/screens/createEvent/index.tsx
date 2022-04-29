@@ -28,7 +28,7 @@ const CreateEvent = () => {
     () => {
       const currentStepIndex = steps.indexOf(step);
       const nextStepIndex = currentStepIndex + 1;
-  
+
       if (nextStepIndex > steps.length - 1) {
         setDisabledPrev(false);
         setDisabledNext(true);
@@ -43,7 +43,7 @@ const CreateEvent = () => {
     [step],
   )
 
- const handleBack = useCallback(
+  const handleBack = useCallback(
     () => {
       const currentStepIndex = steps.indexOf(step);
       const nextStepIndex = currentStepIndex - 1;
@@ -62,16 +62,10 @@ const CreateEvent = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.root}>
-      <Text style={styles.newEvent}>{ stepTitle[step] }</Text>
+      <Text style={styles.newEvent}>{stepTitle[step]}</Text>
       {
-       step === "info" ? <InfoStep />: step === "photos" ? <PhotosStep />: step === "tickets" ? <TicketStep />: step === "address" ? <AddressStep />: step === "dates" ? <DateStep />: null
+        step === "info" ? <InfoStep handleBack={handleBack} handleNext={handleNext} /> : step === "photos" ? <PhotosStep handleBack={handleBack} handleNext={handleNext} /> : step === "tickets" ? <TicketStep handleBack={handleBack} handleNext={handleNext} /> : step === "address" ? <AddressStep handleBack={handleBack} handleNext={handleNext} /> : step === "dates" ? <DateStep handleBack={handleBack} handleNext={handleNext}  /> : null
       }
-      <View style={{ position: "absolute", left: 10, bottom: 10 }}>
-        <FAB onPress={handleBack} disabled={disabledPrev} iconPosition='left' icon={<Icon type='material-community' name='arrow-left' color={Colors.light.background} />} title="Anterior" color={Colors.orange} />
-      </View>
-      <View style={{ position: "absolute", right: 10, bottom: 10 }}>
-        <FAB onPress={handleNext} disabled={disabledNext} title="Siguiente" color={Colors.blue} iconPosition='right' icon={<Icon type='material-community' name='arrow-right' color={Colors.light.background} />} />
-      </View>
     </ScrollView>
   )
 }
