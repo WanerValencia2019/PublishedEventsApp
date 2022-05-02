@@ -18,8 +18,6 @@ export default function (dispatch?: any, token?: string):Axios  {
         baseURL,
         headers,
     });
-    axios.defaults.headers.post['Content-Type'] = 'application/json';
-    axios.defaults.headers.get['Content-Type'] = 'application/json';
 
     return axiosInstance;
 };

@@ -260,9 +260,9 @@ export const createEvent = createAsyncThunk(
     const { token } = getState().auth;
     
     const headers = {
-      Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUyOTExNTcwLCJpYXQiOjE2NTAzMTk1NzAsImp0aSI6IjEyYmJlOTJhZGRhYzQxZTlhNDc3ZDBiY2MzZTM1MzVlIiwidXNlcl9pZCI6IjgzMjhjZTAwMjQ2MDQ4ZDY5NjMyYzg5OTkyZjU5OGMzIn0.xH9iCFRr5bMCxuXRqf9C1OqsSYxKJ5Mg0jXaszHag-I`,
+      ContentType: "application/json",
+      Authorization: `Bearer ${token}`,
     }
-    console.log(headers);
     
     const data_to_send = {
       end_date: data.dates.end,
@@ -284,15 +284,15 @@ export const createEvent = createAsyncThunk(
       })),
     };
     axiosInstance(dispatch)
-      .post("/events/", data_to_send, {
-        headers: {...headers},
+      .post("/events/create/", data_to_send, {
+        headers,
       })
       .then((res: AxiosResponse) => {
         const { data: result } = res.data;
         dispatch(showToast({message: "Evento creado con éxito", type: "success"}));
-        if (data.navigate){
-          data.navigate("Home");
-        } 
+        //if (data.navigate){
+        //  data.navigate("Home");
+        //} 
         return dispatch({
           type: EventTypes.createEventSuccess,
           payload: {
@@ -301,6 +301,11 @@ export const createEvent = createAsyncThunk(
         });
       })
       .catch((error: AxiosError) => {
+        console.log('====================================');
+        console.log(error.message);
+        console.log(error.response?.request);
+        console.log(error.response?.data);
+        console.log('====================================');
         dispatch(showToast({ message: "Error al crear el evento, intentalo nuevamente", type: "error" }));
         return dispatch({
           type: EventTypes.createEventFailed,
