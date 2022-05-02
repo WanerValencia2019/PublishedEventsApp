@@ -290,9 +290,9 @@ export const createEvent = createAsyncThunk(
       .then((res: AxiosResponse) => {
         const { data: result } = res.data;
         dispatch(showToast({message: "Evento creado con éxito", type: "success"}));
-        //if (data.navigate){
-        //  data.navigate("Home");
-        //} 
+        if (data.navigate){
+          data.navigate("Home");
+        } 
         return dispatch({
           type: EventTypes.createEventSuccess,
           payload: {
