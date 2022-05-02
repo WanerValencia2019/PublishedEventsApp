@@ -8,7 +8,7 @@ export default StyleSheet.create({
     root: {
         paddingTop: 24,
         backgroundColor: "white",
-        height
+        //height
     },
     title: {
         fontFamily: fonts.Roboto_500Medium,

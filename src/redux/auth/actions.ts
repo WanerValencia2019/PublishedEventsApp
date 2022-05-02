@@ -82,7 +82,7 @@ export const register = createAsyncThunk(
     axiosInstance(dispatch)
       .post("/auth/register/", dataToSend)
       .then((res: AxiosResponse) => {
-        const { data } = res;
+        const { data: result } = res.data;
         dispatch(
           showToast({ message: "Bienvenido a la familia", type: toastTypeValues.success })
         );
@@ -90,16 +90,26 @@ export const register = createAsyncThunk(
         return dispatch({
           type: AuthTypes.registerSuccess,
           payload: {
-            data: data,
+              data: result,
           },
         });
       })
       .catch((error: AxiosError) => {
-        const { response } = error;        
+        console.log(error);
+        
+        const { response } = error; 
+        console.log(response);
         if (error.response?.status === 400) {
           dispatch(
             showToast({
-              message: response?.data?.message[0],
+              message: String(Object.values(response?.data)[0]),
+              type: toastTypeValues.error,
+            })
+          );
+        }else {
+          dispatch(
+            showToast({
+              message: "Error de conexión",
               type: toastTypeValues.error,
             })
           );
@@ -121,7 +131,7 @@ interface loadProfileParams {
 }
 
 export const loadProfile = createAsyncThunk(
-  "auth/register",
+  "auth/load-profile",
   async ({ token }:loadProfileParams, { dispatch }) => {
     dispatch(startLoading());
 
@@ -152,6 +162,79 @@ export const loadProfile = createAsyncThunk(
         }
         return dispatch({
           type: AuthTypes.loadProfileFailed,
+          payload: {
+            message: "Logrado",
+          },
+        });
+      })
+      .finally(() => dispatch(stopLoading()));
+  }
+);
+
+interface updateProfileParams {
+  firstName?: string;
+  lastName?: string;
+  description?: string,
+  identification?: string,
+}
+
+export const updateProfile = createAsyncThunk(
+  "auth/update-profile",
+  async ({ firstName, lastName, description, identification }:updateProfileParams, { dispatch, getState }:any) => {
+    dispatch(startLoading());
+
+    const { token } = getState().auth;
+    
+    const headers:AxiosRequestHeaders = {
+      ContentType: "application/json",
+      Authorization: `Bearer ${token}`,
+    }
+    const data = {
+      first_name: firstName,
+      last_name: lastName,
+      description,
+      identification,
+    }    
+    axiosInstance(dispatch)
+      .put("/user/update_profile/", data, {headers})
+      .then((res: AxiosResponse) => {
+        const { data: { user } } = res.data;
+        return dispatch({
+          type: AuthTypes.updateProfileSuccess,
+          payload: {
+            data: user,
+          },
+        });
+      })
+      .catch((error: AxiosError) => {
+        console.log(error.response?.config.headers);
+        
+        const { response } = error;        
+        if (error.response?.status === 400) {
+          dispatch(
+            showToast({
+              message: String(Object.values(response?.data)[0]),
+              type: toastTypeValues.error,
+            })
+          );
+        }else if(error.response?.status === 401)  {
+          dispatch(
+            showToast({
+              message: "Tu sesión ha expirado, ingresa nuevamente",
+              type: toastTypeValues.error,
+            })
+          );
+        }
+        else {
+          dispatch(
+            showToast({
+              message: "Error de conexión",
+              type: toastTypeValues.error,
+            })
+          );
+        }
+        return dispatch({
+          type: AuthTypes.updateProfileFailed,
           payload: {
             message: "Logrado",
           },

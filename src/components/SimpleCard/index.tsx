@@ -7,6 +7,8 @@ import Img from "./../../../assets/images/img1.png";
 import { Image } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 
+import LoadingGIF from "./../../../assets/images/loadImage.gif";
+
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 
@@ -24,7 +26,7 @@ const SimpleCard: React.FC<SimpleCardProps> = ({ imageUrl, title, date, id }) =>
     return (
         <TouchableOpacity onPress={() => navigation?.navigate("EventDetailStack", { screen: "eventDetail", params: { eventId: id }, })}>
             <View style={styles.root}>
-                <Image style={{ width: 79, height: 92, borderRadius: 8 }} source={imageUrl ? { uri: imageUrl } : Img} />
+                <Image loadingIndicatorSource={LoadingGIF} style={{ width: 79, height: 92, borderRadius: 8 }} source={imageUrl ? { uri: imageUrl } : Img} />
                 <View style={styles.content}>
                     <Text style={styles.date}>{dayjs(date).format("D MMMM [-] dddd [-] h:mm A")}</Text>
                     <Text style={styles.title}>{title}</Text>

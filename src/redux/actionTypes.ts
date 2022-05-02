@@ -12,6 +12,8 @@ export const AuthTypes = {
     logout: "auth/logout",
     loadProfileSuccess: "auth/load-profile-success",
     loadProfileFailed: "auth/load-profile-failed",
+    updateProfileSuccess: "auth/update-profile-success",
+    updateProfileFailed: "auth/update-profile-failed",
 }
 
 export const EventTypes = {

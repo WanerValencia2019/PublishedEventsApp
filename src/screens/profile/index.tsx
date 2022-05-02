@@ -14,6 +14,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import * as ImagePicker from 'expo-image-picker';
 import axiosInstance from '../../helpers/axiosInstance';
 import { showToast } from '../../redux/toast/actions';
+import { startLoading, stopLoading } from '../../redux/loading/actions';
 
 const { width, height } = Dimensions.get("screen");
 
@@ -25,7 +26,7 @@ const Profile = (props: { navigation: any }) => {
 
     useEffect(() => {
         dispatch(loadProfile({ token: auth.token }));
-    }, [auth.isAuthenticated, auth.token]);
+    }, [auth.isAuthenticated, auth.token, auth.id_log]);
 
     const logoutUser = () => {
         dispatch(logout());
@@ -54,6 +55,7 @@ const Profile = (props: { navigation: any }) => {
         });
 
         if (!result.cancelled) {
+            dispatch(startLoading())
             const base64 = result.base64;
             const data = {
                 image: base64
@@ -62,13 +64,12 @@ const Profile = (props: { navigation: any }) => {
                 .then((res) => {
                     dispatch(loadProfile({ token: auth.token}));
                 })
-                .catch((err) => dispatch(showToast({ message: err.response.data.message, type: 'error' })));
-
+                .catch((err) => dispatch(showToast({ message: err.response.data.message, type: 'error' })))
+                .finally(() => dispatch(stopLoading()));
         }
     };
 
     const redirectEditProfile = () => {
-        console.log("HELLO");
         props?.navigation.navigate("EditProfile");
     }
 
@@ -108,7 +109,7 @@ const Profile = (props: { navigation: any }) => {
                         <Text style={styles.description}>{auth.user.description}</Text>
                     </View>
                 </View>
-                <Button containerStyle={{ marginTop: 20 }} onPress={logoutUser} title="Cerrar sesión" />
+               {/*} <Button containerStyle={{ paddingTop: height*0.1 }} onPress={logoutUser} title="Cerrar sesión" buttonStyle={{backgroundColor: Colors.darkBlueText}} /> {*/}
             </View>
         </ScrollView>
     )

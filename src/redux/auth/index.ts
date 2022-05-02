@@ -1,4 +1,5 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
+import { generateString } from "../../utils";
 import { AuthTypes } from "../actionTypes";
 import { loadProfileSuccessReducer, loginSuccessReducer, logoutReducer, registerSuccessReducer } from "./reducers";
 
@@ -15,6 +16,7 @@ export interface AuthTypeData {
   };
   token: any;
   isAuthenticated: Boolean;
+  id_log: string;
 }
 
 const initialState: AuthTypeData = {
@@ -27,6 +29,7 @@ const initialState: AuthTypeData = {
   },
   token: null,
   isAuthenticated: false,
+  id_log: generateString(),
 };
 
 const loginSuccess = createAction<AuthTypeData>(AuthTypes.loginSuccess);
@@ -39,6 +42,9 @@ const loadProfileSuccess = createAction<AuthTypeData>(AuthTypes.loadProfileSucce
 const loadProfileFailed = createAction<AuthTypeData>(AuthTypes.loadProfileFailed);
 
 const logout = createAction<AuthTypeData>(AuthTypes.logout);
+
+const updateProfileSuccess = createAction<AuthTypeData>(AuthTypes.updateProfileSuccess);
+const updateProfileFailed = createAction<AuthTypeData>(AuthTypes.updateProfileFailed);
 
 export default createReducer(initialState, (builder) => {
   builder.addCase(loginSuccess, loginSuccessReducer);

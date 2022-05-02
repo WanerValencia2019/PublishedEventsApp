@@ -8,6 +8,8 @@ import { fonts, paragraphs } from '../../constants/Texts';
 
 import Img from "./../../../assets/images/img1.png";
 
+import LoadingGIF from "./../../../assets/images/loadImage.gif";
+
 import styles from './styles';
 
 const { width, height } = Dimensions.get("screen");
@@ -35,7 +37,7 @@ const EventCard: React.FC<EventCardTypes> = ({ id, title, address, date, imgUrl,
     return (
         <TouchableOpacity onPress={() => navigation?.navigate("EventDetailStack", { screen: "eventDetail", params: { eventId: id }, })}>
             <View style={styles.root} >
-                <ImageBackground borderRadius={12} style={styles.imageBackground} source={imgUrl ? { uri: imgUrl } : Img}>
+                <ImageBackground loadingIndicatorSource={LoadingGIF} borderRadius={12} style={styles.imageBackground} source={imgUrl ? { uri: imgUrl } : Img}>
                     <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                         <View style={styles.wrapperDate}>
                             <Text style={styles.textDay}>{dayjs(date).format('D')}</Text>

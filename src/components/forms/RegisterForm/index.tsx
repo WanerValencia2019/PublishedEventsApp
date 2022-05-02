@@ -19,7 +19,7 @@ type RegisterValues = {
 }
 
 const RegisterForm: React.FC<RegisterFormTypes> = ({ children, handleRegister }) => {
-    const { handleSubmit, register, formState: { errors }, control, setValue } = useForm<RegisterValues>({
+    const { handleSubmit, register, watch, formState: { errors }, control, setValue } = useForm<RegisterValues>({
         defaultValues: {
             email: "",
             password: "",
@@ -32,6 +32,8 @@ const RegisterForm: React.FC<RegisterFormTypes> = ({ children, handleRegister })
     const submit = (values: RegisterValues) => {
         handleRegister({ ...values });
     }
+
+    const currentPassword = watch('password');
 
     return (
         <InputScrollView style={styles.containerRegisterForm}>
@@ -68,7 +70,11 @@ const RegisterForm: React.FC<RegisterFormTypes> = ({ children, handleRegister })
             <Input {...register("password", {
                 required: {
                     value: true,
-                    message: "Este campo es requerido"
+                    message: "Este campo es requerido",
+                },
+                pattern: {
+                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/,
+                    message: "La contraseña debe contener al menos 1 mayúscula, 1 minúscula y 1 número"
                 }
             })}
                 onChangeText={(text) => setValue("password", text)}
@@ -78,7 +84,8 @@ const RegisterForm: React.FC<RegisterFormTypes> = ({ children, handleRegister })
                 required: {
                     value: true,
                     message: "Este campo es requerido"
-                }
+                },
+                validate:  (value) => value === currentPassword || "Las contraseñas no coinciden", 
             })}
                 onChangeText={(text) => setValue("confirmPassword", text)}
                 errorMessage={errors.confirmPassword?.message}

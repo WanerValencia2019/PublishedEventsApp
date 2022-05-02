@@ -15,7 +15,7 @@ export default StyleSheet.create({
         marginTop: 24,
         //justifyContent: "space-between",
         flexDirection: "column",
-        alignItems: "center",
+        //alignItems: "center",
         backgroundColor: Colors.light.background
     },
     wrapperHeader: {
@@ -43,7 +43,7 @@ export default StyleSheet.create({
         fontWeight:"400",
         marginLeft: width*0.03,
         marginBottom: height*0.01,
-        fontSize: paragraphs.pLarge
+        fontSize: paragraphs.pLarge,
     },
     description: {
         fontFamily: fonts.Roboto_300Light,
