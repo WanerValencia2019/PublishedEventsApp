@@ -55,7 +55,6 @@ export default function Home({ navigation }: any) {
         }
       } catch (error) {
         setMapError("No se pudo obtener la ubicación");
-        console.log("HOLEE " + error);
       }
     })();
   }, [id_log]);

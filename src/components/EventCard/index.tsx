@@ -37,7 +37,7 @@ const EventCard: React.FC<EventCardTypes> = ({ id, title, address, date, imgUrl,
     return (
         <TouchableOpacity onPress={() => navigation?.navigate("EventDetailStack", { screen: "eventDetail", params: { eventId: id }, })}>
             <View style={styles.root} >
-                <ImageBackground loadingIndicatorSource={LoadingGIF} borderRadius={12} style={styles.imageBackground} source={imgUrl ? { uri: imgUrl } : Img}>
+                <ImageBackground loadingIndicatorSource={{uri: "https://www.citypng.com/public/uploads/preview/loading-load-icon-transparent-png-11639609114lctjenyas8.png"}} borderRadius={12} style={styles.imageBackground} source={imgUrl ? { uri: imgUrl } : Img}>
                     <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                         <View style={styles.wrapperDate}>
                             <Text style={styles.textDay}>{dayjs(date).format('D')}</Text>

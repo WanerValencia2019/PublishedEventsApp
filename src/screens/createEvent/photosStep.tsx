@@ -6,25 +6,25 @@ import Colors from '../../constants/Colors';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { showToast } from '../../redux/toast/actions';
 import { newEventPhotos } from '../../redux/events/actions';
+import { uploadImage } from '../../utils/s3aws';
 
-const PhotosStep = ({ handleBack, handleNext }) => {
+const PhotosStep = ({ handleBack, handleNext }:any) => {
   const [image, setImage] = React.useState<any>(null);
-  const [imageBase64, setImageBase64] = React.useState<any>(null);
+  const [imageName, setImageName] = React.useState<any>(null);
   const dispatch = useAppDispatch();
-  const { newEvent: { photos } } = useAppSelector(state => state.events)
+  const { newEvent: { photos, info } } = useAppSelector(state => state.events)
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
-      base64: true,
     });
 
     if (!result.cancelled) {
-      setImageBase64(result.base64);
       setImage(result.uri);
+      setImageName(info.title)
     }
   };
 
@@ -36,7 +36,7 @@ const PhotosStep = ({ handleBack, handleNext }) => {
     if(!image) {
       dispatch(showToast({"message": "Debes seleccionar una imagen", "type": "error"}));
     } else{
-      dispatch(newEventPhotos({photos: { mainImage: { base64: imageBase64, url: image} }}))
+      dispatch(newEventPhotos({photos: {mainImage: {url: image, imageName,}} }));
       handleNext();
     }
   }

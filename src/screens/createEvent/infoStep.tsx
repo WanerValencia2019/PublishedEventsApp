@@ -27,7 +27,7 @@ const InfoStep = ({ handleBack, handleNext }: any) => {
 
     useEffect(() => {
         dispatch(getCategories())
-    }, [])
+    }, [newEvent])
 
     useEffect(() => {
         console.log(newEvent.info);
@@ -39,9 +39,9 @@ const InfoStep = ({ handleBack, handleNext }: any) => {
             setValue('description', newEvent.info.description)
         }
         if (newEvent.info.space_availables) {
-            setValue('space_availables', String(newEvent.info.space_availables))
+            setValue('space_availables', Number(newEvent.info.space_availables))
         }
-    }, [newEvent.info])
+    }, [newEvent.info, newEvent.tickets])
 
     const onSelectedItemsChange = (selectedItems: any) => {
         setSelectedItems(selectedItems);
@@ -56,7 +56,6 @@ const InfoStep = ({ handleBack, handleNext }: any) => {
         dispatch(newEventInfoUpdate({
             title: data.title,
             description: data.description,
-            space_availables: Number(data.space_availables),
             categories,
         }))
         handleNext();
@@ -104,22 +103,13 @@ const InfoStep = ({ handleBack, handleNext }: any) => {
                 />
                 <Controller
                     control={control}
-                    {...register("space_availables", {
-                        required: {
-                            value: true,
-                            message: "Este campo es requerido"
-                        },
-                        pattern: {
-                            value: /^[0-9]+$/,
-                            message: "Este campo solo acepta numeros"
-                        }
-                    })}
+                    {...register("space_availables")}
                     name='space_availables'
+                    defaultValue={newEvent.info.space_availables}
                     render={({ field }) => (
                         <Input
                             {...field}
-                            onChangeText={(text) => setValue("space_availables", text)}
-                            errorMessage={errors.space_availables?.message}
+                            disabled={true}
                             placeholder='Cantidad de entradas'
                         />
                     )}

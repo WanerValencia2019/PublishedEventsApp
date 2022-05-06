@@ -29,7 +29,7 @@ interface newEventTypes {
   photos: {
     mainImage: {
       url: string;
-      base64: string;
+      imageName: string;
     };
   };
   location: {
@@ -67,7 +67,7 @@ const initialState: eventInitialType = {
     photos: {
       mainImage: {
         url: "",
-        base64: "",
+        imageName: "",
       },
     },
     location: {
@@ -118,7 +118,7 @@ export default createReducer(initialState, (builder) => {
   builder.addCase(newEventLocationUpdateAction, newEventLocationUpdateReducer);
   builder.addCase(newEventAddTicker, newEventAddTicketReducer);
   builder.addCase(createEventAction, (state, action) => {
-    state.newEvent = initialState.newEvent;
+    //state.newEvent = initialState.newEvent;
     state.id_log = generateString()
   });
 });

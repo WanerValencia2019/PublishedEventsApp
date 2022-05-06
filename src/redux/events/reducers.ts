@@ -21,12 +21,14 @@ export const listCategoriesReducer = (state: eventInitialType, action: any)  => 
 export const newEventInfoUpdateReducer = (state: eventInitialType, action: any)  => {
     state.newEvent.info.categories = action.payload?.categories && action.payload.categories;
     state.newEvent.info.description = action.payload?.description && action.payload.description;
-    state.newEvent.info.space_availables = action.payload?.space_availables && action.payload.space_availables;
+    if(action.payload?.space_availables) {
+        state.newEvent.info.space_availables = action.payload.space_availables;
+    }
     state.newEvent.info.title =action.payload?.title && action.payload.title;
 }
 
 export const newEventPhotosUpdateReducer = (state: eventInitialType, action: any)  => {
-    state.newEvent.photos.mainImage.base64 = action.payload?.base64 && action.payload.base64;
+    state.newEvent.photos.mainImage.imageName = action.payload?.imageName && action.payload.imageName;
     state.newEvent.photos.mainImage.url = action.payload?.url && action.payload.url;
 }
 
@@ -56,4 +58,5 @@ interface newEventAddTicketProps {
 
 export const newEventAddTicketReducer = (state: eventInitialType, action: any)  => {
     state.newEvent.tickets = [...state.newEvent.tickets, action.payload];
+    state.newEvent.info.space_availables += action.payload.quantity;
 }

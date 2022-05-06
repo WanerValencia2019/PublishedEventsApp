@@ -26,7 +26,7 @@ const SimpleCard: React.FC<SimpleCardProps> = ({ imageUrl, title, date, id }) =>
     return (
         <TouchableOpacity onPress={() => navigation?.navigate("EventDetailStack", { screen: "eventDetail", params: { eventId: id }, })}>
             <View style={styles.root}>
-                <Image loadingIndicatorSource={LoadingGIF} style={{ width: 79, height: 92, borderRadius: 8 }} source={imageUrl ? { uri: imageUrl } : Img} />
+                <Image loadingIndicatorSource={{uri: "https://www.citypng.com/public/uploads/preview/loading-load-icon-transparent-png-11639609114lctjenyas8.png"}} style={{ width: 79, height: 92, borderRadius: 8 }} source={imageUrl ? { uri: imageUrl } : Img} />
                 <View style={styles.content}>
                     <Text style={styles.date}>{dayjs(date).format("D MMMM [-] dddd [-] h:mm A")}</Text>
                     <Text style={styles.title}>{title}</Text>

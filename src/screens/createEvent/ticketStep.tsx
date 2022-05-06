@@ -16,11 +16,14 @@ const { width } = Dimensions.get("screen");
 const TicketStep = ({ handleBack, handleNext }: any) => {
     const [visible, setVisible] = useState(false);
 
-    const { newEvent: { tickets } } = useAppSelector(state => state.events)
+    const { newEvent: { tickets, info } } = useAppSelector(state => state.events)
 
     const showModal = () =>{
         setVisible((prev)=>!prev);
     }
+    console.log('====================================');
+    console.log(info);
+    console.log('====================================');
     
     return (
         <View style={styles.root}>

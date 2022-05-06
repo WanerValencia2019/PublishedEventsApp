@@ -1,6 +1,7 @@
 import { AsyncThunkPayloadCreator, createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError, AxiosResponse } from "axios";
 import { AppDispatch } from "..";
+import { uploadImage } from "../../utils/s3aws";
 import { EventTypes } from "../actionTypes";
 import { startLoading, stopLoading } from "../loading/actions";
 import { showToast } from "../toast/actions";
@@ -70,10 +71,10 @@ interface nearEventsParams {
 export const getNearEvents = createAsyncThunk(
   "events/list",
   async ({ latitude, longitude }: nearEventsParams, { dispatch }) => {
+    dispatch(startLoading());
     axiosInstance(dispatch)
       .get(`/events/nearby?latitude=${latitude}&longitude=${longitude}`)
       .then((res: AxiosResponse) => {
-        dispatch(startLoading());
         const { data } = res.data;
         return dispatch({
           type: EventTypes.listNearEventsSuccess,
@@ -146,7 +147,7 @@ interface photosUpdate {
   photos: {
     mainImage: {
       url: string;
-      base64: string;
+      imageName: string;
     };
   };
 }
@@ -154,14 +155,14 @@ interface photosUpdate {
 export const newEventPhotos =
   ({
     photos: {
-      mainImage: { base64, url },
+      mainImage: { imageName, url },
     },
   }: photosUpdate) =>
   (dispatch: AppDispatch) => {
     return dispatch({
       type: EventTypes.newEventPhotosUpdated,
       payload: {
-        base64,
+        imageName,
         url,
       },
     });
@@ -236,7 +237,7 @@ interface newEventTypes {
   photos: {
     mainImage: {
       url: string;
-      base64: string;
+      imageName: string;
     };
   };
   location: {
@@ -271,18 +272,32 @@ export const createEvent = createAsyncThunk(
       description: data.info.description,
       space_available: Number(data.info.space_availables),
       title: data.info.title,
+      images: {
+        mainImage: "",
+      },
       categories: data.info.categories,
       address: data.location.address,
       latitude: data.location.latitude,
       longitude: data.location.longitude,
-      images: {
-        mainImage: data.photos.mainImage.base64,
-      },
       tickets: data.tickets.map((ticket) => ({
         unit_price: Number(ticket.price),
         ...ticket,
       })),
     };
+    const image_url:any = await uploadImage(data.photos.mainImage.url, data.photos.mainImage.imageName)
+    console.log(image_url);
+    
+    if(!image_url) {
+      dispatch(showToast({ message: "Error al crear el evento, intentalo nuevamente", type: "error" }));
+      return dispatch({
+        type: EventTypes.createEventFailed,
+        payload: {
+          message: "Error en la imagen",
+        },
+      });
+    }
+    data_to_send.images.mainImage = image_url;
+
     axiosInstance(dispatch)
       .post("/events/create/", data_to_send, {
         headers,
