@@ -23,6 +23,7 @@ export type RootStackParamList = {
   eventDetail: undefined;
   EventDetailStack: undefined;
   eventTicketTypes: undefined;
+  eventConfirmInfoBuy: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

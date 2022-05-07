@@ -24,6 +24,8 @@ import DrawerNav from './drawer';
 import Auth from '../screens/auth/Initial';
 import EventDetail from '../screens/eventDetail';
 import ShowTicketTypes from "../screens/showTicketTypes";
+import ViewTickets from '../screens/viewTickets';
+import ConfirmInfoBuy from '../screens/ConfirmInfoBuy';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -69,8 +71,9 @@ function RootNavigator() {
 function EventDetailNavigator () {
   return (
     <Stack.Navigator initialRouteName='eventDetail'>
-      <Stack.Screen name='eventDetail' component={EventDetail} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "Detalle de evento", headerTransparent: true, headerTitleStyle:{color: "white"}, headerTintColor:"white" }} />
-        <Stack.Screen name='eventTicketTypes' component={ShowTicketTypes} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "Entradas disponibles" }} />
+        <Stack.Screen name='eventDetail' component={EventDetail} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "Detalle de evento", headerTransparent: true, headerTitleStyle:{color: "white"}, headerTintColor:"white" }} />
+        <Stack.Screen name='eventTicketTypes' component={ViewTickets} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "Entradas disponibles" }} />
+        <Stack.Screen name='eventConfirmInfoBuy' component={ConfirmInfoBuy} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "Confirmar compra" }} />
     </Stack.Navigator>
   );
 }

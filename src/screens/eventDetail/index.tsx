@@ -96,7 +96,7 @@ const EventDetail = (props: any) => {
                 }
             </ScrollView>
             <View style={styles.wrapperBottomView}>
-                <FAB title="Reservar entrada" color={Colors.blue} iconPosition='right' icon={<Icon type='material-community' name='ticket' color={Colors.light.background} />} />
+                <FAB onPress={()=> navigation.navigate("EventDetailStack", {screen: "eventTicketTypes", params: {event: event}})} title="Reservar entrada" color={Colors.blue} iconPosition='right' icon={<Icon type='material-community' name='ticket' color={Colors.light.background} />} />
             </View>
         </View>
     )

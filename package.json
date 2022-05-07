@@ -52,6 +52,7 @@
     "react-native-intl": "^1.0.0",
     "react-native-maps": "0.29.4",
     "react-native-multiple-select": "^0.5.7",
+    "react-native-numeric-input": "^1.9.1",
     "react-native-paper": "^4.12.0",
     "react-native-reanimated": "^2.4.1",
     "react-native-safe-area-context": "3.3.2",
@@ -60,6 +61,7 @@
     "react-native-toast-message": "^2.1.5",
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
+    "react-native-webview": "^11.18.2",
     "react-redux": "^7.2.6",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1"

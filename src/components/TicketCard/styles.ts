@@ -32,6 +32,12 @@ export default StyleSheet.create({
         color: Colors.darkBlueText,
         marginTop: height*0.008,
     },
+    tickets_available: {
+        fontFamily: fonts.Roboto_400Regular,
+        fontSize: paragraphs.pSmall,
+        color: Colors.blue,
+        marginTop: height*0.008,
+    },
     freePrice: {
         fontFamily: fonts.Roboto_700Bold,
         fontSize: paragraphs.pLarge,
