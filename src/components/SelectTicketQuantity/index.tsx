@@ -39,6 +39,7 @@ const SelectTicketQuantity: React.FC<SelectTicketQuantityProps> = ({ availableTi
             return;
         }
         navigation.navigate('eventConfirmInfoBuy', { quantity, title, ticket_id, unit_price });
+        toggleOverlay();
     }
 
     return (
