@@ -1,5 +1,5 @@
 import { View, Text, ScrollView } from 'react-native'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import styles from "./styles";
 import InfoStep from './infoStep';
@@ -10,6 +10,8 @@ import PhotosStep from './photosStep';
 import AddressStep from './addressStep';
 import DateStep from './dateStep';
 import TicketStep from './ticketStep';
+import { useAppSelector } from '../../hooks/redux';
+import { useNavigation } from '@react-navigation/native';
 
 const CreateEvent = () => {
   const steps = ["info", "photos", "tickets", "address", "dates",];
@@ -20,6 +22,7 @@ const CreateEvent = () => {
     address: "Dirección",
     dates: "Fechas",
   }
+
   const [step, setStep] = React.useState(steps[0]);
   const [disabledNext, setDisabledNext] = React.useState(false);
   const [disabledPrev, setDisabledPrev] = React.useState(true);
@@ -59,6 +62,7 @@ const CreateEvent = () => {
     },
     [step],
   )
+
 
   return (
     <ScrollView contentContainerStyle={styles.root}>

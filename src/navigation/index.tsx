@@ -64,7 +64,6 @@ function RootNavigator() {
   return (
     <Stack.Navigator initialRouteName='initial'>
       <Stack.Screen name='auth' component={Login} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "", headerTransparent: true, }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
 }

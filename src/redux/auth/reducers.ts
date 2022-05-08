@@ -41,4 +41,5 @@ export const logoutReducer = (state: AuthTypeData, action: any)  => {
     state.user.email = "";
     state.user.imageUrl = "";
     state.user.description = "";
+    state.user.identification = "";
 }

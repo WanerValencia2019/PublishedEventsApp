@@ -321,7 +321,12 @@ export const createEvent = createAsyncThunk(
         console.log(error.response?.request);
         console.log(error.response?.data);
         console.log('====================================');
-        dispatch(showToast({ message: "Error al crear el evento, intentalo nuevamente", type: "error" }));
+        if(error.response?.status === 401) {
+          dispatch(showToast({ message: "Debes iniciar sesión para crear el evento", type: "error" }));
+        }else {
+          dispatch(showToast({ message: "Error al crear el evento, intentalo nuevamente", type: "error" }));
+        }
+        
         return dispatch({
           type: EventTypes.createEventFailed,
           payload: {

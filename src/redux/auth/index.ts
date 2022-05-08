@@ -29,7 +29,7 @@ const initialState: AuthTypeData = {
   },
   token: null,
   isAuthenticated: false,
-  id_log: generateString(),
+  id_log: '',
 };
 
 const loginSuccess = createAction<AuthTypeData>(AuthTypes.loginSuccess);

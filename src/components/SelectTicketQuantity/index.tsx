@@ -57,7 +57,7 @@ const SelectTicketQuantity: React.FC<SelectTicketQuantityProps> = ({ availableTi
                         valueType='integer'
                         rounded
                         maxValue={availableTickets}
-                        minValue={1}
+                        minValue={availableTickets === 0 ? 0 : 1}
                         textColor={Colors.blue}
                         iconStyle={{ color: 'white' }}
                         rightButtonBackgroundColor={Colors.darkBlue}
@@ -70,7 +70,7 @@ const SelectTicketQuantity: React.FC<SelectTicketQuantityProps> = ({ availableTi
             />
             <View style={{marginTop: 20,display: "flex", flexDirection:"row", width: "100%"}}>
                 <Button onPress={toggleOverlay} type='outline' title="Cancelar" containerStyle={{width: width*0.35}} />
-                <Button onPress={handleSubmit(onSubmit)} buttonStyle={{backgroundColor: Colors.darkBlueText}} containerStyle={{width: width*0.35, marginLeft: 20}} title="Comprar" />
+                <Button disabled={availableTickets === 0} onPress={handleSubmit(onSubmit)} buttonStyle={{backgroundColor: Colors.darkBlueText}} containerStyle={{width: width*0.35, marginLeft: 20}} title="Comprar" />
             </View>
         </Overlay>
     );

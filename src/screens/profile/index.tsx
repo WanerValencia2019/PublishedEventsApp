@@ -83,7 +83,7 @@ const Profile = (props: { navigation: any }) => {
                 <View style={styles.wrapperInfoSection}>
                     <Avatar
                         size={width * 0.25}
-                        source={{ uri: auth.user.imageUrl }}
+                        source={auth.user.imageUrl ? { uri: auth.user.imageUrl }:null}
                         title={auth.user.firstName?.charAt(0) || "U"}
                         containerStyle={{ backgroundColor: Colors.blue }}
                         rounded
