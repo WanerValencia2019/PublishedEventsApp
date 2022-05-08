@@ -10,11 +10,13 @@ import Colors from '../../constants/Colors';
 import axiosInstance from '../../helpers/axiosInstance';
 import { startLoading, stopLoading } from '../../redux/loading/actions';
 import WebView from 'react-native-webview';
+import { useNavigation } from '@react-navigation/native';
 
 interface confirmInfoBuyFormProps {
     fullName: string,
     email: string,
     phone: string,
+    identification: string,
 }
 
 const ConfirmInfoBuy = ({ route, }: any) => {
@@ -24,39 +26,37 @@ const ConfirmInfoBuy = ({ route, }: any) => {
     const title = route.params.title;
     const quantity = route.params.quantity;
     const unit_price = route.params.unit_price;
-    const [url, setUrl] = React.useState(''); 
+    const [url, setUrl] = React.useState('');
+    const navigation: any = useNavigation();
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        setValue('fullName', user.firstName + ' ' + user.lastName);
-        setValue('email', user.email);
+        setValue('fullName', user ? user.firstName + ' ' + user.lastName : '');
+        setValue('email', user.email || '');
+        setValue('identification', user.identification || '')
     }, [])
 
     const onSubmit = (data: confirmInfoBuyFormProps) => {
-        const { fullName, email, phone } = data;
+        const { fullName, email, phone, identification } = data;
         const data_to_send = {
             full_name: fullName,
             email,
             phone,
+            identification,
             ticket_type_id: ticket_id,
-            ticket_quantity:quantity,
+            ticket_quantity: quantity,
         }
-        
+
         dispatch(startLoading())
         axiosInstance().post("/payment", data_to_send)
-        .then(res => {
-            const { data } = res;
-            setUrl(data.next_url);
-            console.log(data);
-            
-        })
-        .catch(err => console.log(err)
-        )
-        .finally(() => dispatch(stopLoading()))
-    }
-
-    if(url) {
-        return <WebView  sharedCookiesEnabled allowsLinkPreview allowFileAccessFromFileURLs userAgent='Firefox/42.0' source={{ uri: url }} javaScriptEnabled domStorageEnabled pullToRefreshEnabled textInteractionEnabled thirdPartyCookiesEnabled cacheEnabled scrollEnabled autoManageStatusBarEnabled />
+            .then(res => {
+                const { data } = res;
+                //setUrl(data.next_url);
+                navigation.navigate("eventPayWebView", { url: data.next_url });
+            })
+            .catch(err => console.log(err)
+            )
+            .finally(() => dispatch(stopLoading()))
     }
 
     return (
@@ -64,7 +64,7 @@ const ConfirmInfoBuy = ({ route, }: any) => {
             <InputScrollView>
                 <Controller
                     control={control}
-                    rules = {{
+                    rules={{
                         required: {
                             value: true,
                             message: "Este campo es requerido"
@@ -81,8 +81,22 @@ const ConfirmInfoBuy = ({ route, }: any) => {
                     )}
                 />
                 <Controller
+                    render={({ field }) => (
+                        <Input
+                            {...field}
+                            onChangeText={(text) => setValue("identification", text)}
+                            errorMessage={errors.identification?.message}
+                            placeholder='Identificación'
+                        />
+                    )}
                     control={control}
-                    rules = {{
+                    name="identification"
+                    rules={{ required: true }}
+                    defaultValue={user.identification}
+                />
+                <Controller
+                    control={control}
+                    rules={{
                         required: {
                             value: true,
                             message: "Este campo es requerido"
@@ -104,7 +118,7 @@ const ConfirmInfoBuy = ({ route, }: any) => {
                 />
                 <Controller
                     control={control}
-                    rules = {{
+                    rules={{
                         required: {
                             value: true,
                             message: "Este campo es requerido"
@@ -115,7 +129,7 @@ const ConfirmInfoBuy = ({ route, }: any) => {
                         }
                     }}
                     name='phone'
-                    render={({ field }:any) => (
+                    render={({ field }: any) => (
                         <Input
                             {...field}
                             onChangeText={(text) => setValue("phone", text)}
@@ -125,14 +139,14 @@ const ConfirmInfoBuy = ({ route, }: any) => {
                     )}
                 />
                 <View>
-                    <Text style={{marginLeft: 10, fontSize: headers.h5}}>Información de compra</Text>
+                    <Text style={{ marginLeft: 10, fontSize: headers.h5 }}>Información de compra</Text>
                     <Card>
                         <Text style={{ fontSize: paragraphs.pLarge, fontWeight: 'bold' }}>{title}</Text>
                         <Text style={{ fontSize: paragraphs.pSmall }}>{quantity} entradas</Text>
-                        <Text style={{ fontSize: paragraphs.pMedium, color: Colors.blue }}>{formatValue(unit_price*quantity)}</Text>
+                        <Text style={{ fontSize: paragraphs.pMedium, color: Colors.blue }}>{formatValue(unit_price * quantity)}</Text>
                     </Card>
                 </View>
-                <Button onPress={handleSubmit(onSubmit)} buttonStyle={{backgroundColor: Colors.blue}} containerStyle={{marginTop: 20, marginLeft: 15, marginRight: 15}} title="Confirmar compra" />
+                <Button onPress={handleSubmit(onSubmit)} buttonStyle={{ backgroundColor: Colors.blue }} containerStyle={{ marginTop: 20, marginLeft: 15, marginRight: 15 }} title="Confirmar compra" />
             </InputScrollView>
         </View>
     )
@@ -142,6 +156,6 @@ export default ConfirmInfoBuy
 
 const styles = StyleSheet.create({
     root: {
-        marginTop:24
+        marginTop: 24
     }
 })

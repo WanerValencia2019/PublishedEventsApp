@@ -26,6 +26,8 @@
     "@react-navigation/native-stack": "^6.1.0",
     "@reduxjs/toolkit": "^1.8.0",
     "@types/react-native-aws3": "^0.0.1",
+    "@types/whatwg-url": "^8.2.1",
+    "D": "^1.0.0",
     "axios": "^0.26.0",
     "dayjs": "^1.11.0",
     "expo": "~44.0.0",

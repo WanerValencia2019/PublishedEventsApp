@@ -26,6 +26,7 @@ import EventDetail from '../screens/eventDetail';
 import ShowTicketTypes from "../screens/showTicketTypes";
 import ViewTickets from '../screens/viewTickets';
 import ConfirmInfoBuy from '../screens/ConfirmInfoBuy';
+import PayWebView from '../screens/PayWebview';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -74,6 +75,7 @@ function EventDetailNavigator () {
         <Stack.Screen name='eventDetail' component={EventDetail} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "Detalle de evento", headerTransparent: true, headerTitleStyle:{color: "white"}, headerTintColor:"white" }} />
         <Stack.Screen name='eventTicketTypes' component={ViewTickets} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "Entradas disponibles" }} />
         <Stack.Screen name='eventConfirmInfoBuy' component={ConfirmInfoBuy} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "Confirmar compra" }} />
+        <Stack.Screen name='eventPayWebView' component={PayWebView} options={{ headerShown: true,headerBackVisible: false,  headerBackTitle: "Retroceder", title: "Finalizar compra" }} />
     </Stack.Navigator>
   );
 }
