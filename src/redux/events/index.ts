@@ -4,6 +4,7 @@ import { EventTypes } from "../actionTypes";
 import {
   listCategoriesReducer,
   listEventsReducer,
+  listMyEventsReducer,
   listNearEventsReducer,
   listNextEventsReducer,
   newEventAddTicketReducer,
@@ -47,6 +48,7 @@ interface newEventTypes {
 export interface eventInitialType {
   list: Array<any>;
   nextEvents: Array<any>;
+  myEvents: Array<any>;
   nearEvents: Array<any>;
   newEvent: newEventTypes;
   categories: Array<{ id: string; name: string; description: string }>;
@@ -57,6 +59,7 @@ const initialState: eventInitialType = {
   list: [],
   nextEvents: [],
   nearEvents: [],
+  myEvents: [],
   newEvent: {
     info: {
       title: "",
@@ -106,9 +109,11 @@ const newEventLocationUpdateAction = createAction<eventInitialType>(EventTypes.n
 const newEventAddTicker = createAction<eventInitialType>(EventTypes.newEventAddTicket);
 const createEventAction = createAction<eventInitialType>(EventTypes.createEventSuccess);
 
+const listMyEventsAction = createAction<eventInitialType>(EventTypes.listMyEventsSuccess);
 
 export default createReducer(initialState, (builder) => {
   builder.addCase(listEventsAction, listEventsReducer);
+  builder.addCase(listMyEventsAction, listMyEventsReducer);
   builder.addCase(listNextEventAction, listNextEventsReducer);
   builder.addCase(listNearEventsAction, listNearEventsReducer);
   builder.addCase(listCategoryEventsAction, listCategoriesReducer); 
@@ -118,7 +123,7 @@ export default createReducer(initialState, (builder) => {
   builder.addCase(newEventLocationUpdateAction, newEventLocationUpdateReducer);
   builder.addCase(newEventAddTicker, newEventAddTicketReducer);
   builder.addCase(createEventAction, (state, action) => {
-    //state.newEvent = initialState.newEvent;
+    state.newEvent = initialState.newEvent;
     state.id_log = generateString()
   });
 });

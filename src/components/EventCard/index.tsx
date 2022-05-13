@@ -25,17 +25,18 @@ interface EventCardTypes {
     title: string,
     address: String,
     imgUrl: string,
-    navigation: any
+    navigation: any,
+    onPress?: any,
 }
 const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
     "July", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
 ];
 
 
-const EventCard: React.FC<EventCardTypes> = ({ id, title, address, date, imgUrl, navigation}) => {
+const EventCard: React.FC<EventCardTypes> = ({ id, title, address, date, imgUrl, navigation,  onPress}) => {
 
     return (
-        <TouchableOpacity onPress={() => navigation?.navigate("EventDetailStack", { screen: "eventDetail", params: { eventId: id }, })}>
+        <TouchableOpacity onPress={() => onPress ? onPress(): navigation?.navigate("EventDetailStack", { screen: "eventDetail", params: { eventId: id }, })}>
             <View style={styles.root} >
                 <ImageBackground loadingIndicatorSource={{uri: "https://www.citypng.com/public/uploads/preview/loading-load-icon-transparent-png-11639609114lctjenyas8.png"}} borderRadius={12} style={styles.imageBackground} source={imgUrl ? { uri: imgUrl } : Img}>
                     <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>

@@ -19,12 +19,13 @@ interface SimpleCardProps {
     title: string,
     date: string,
     id: string,
+    onPress?: any,
 }
 
-const SimpleCard: React.FC<SimpleCardProps> = ({ imageUrl, title, date, id }) => {
+const SimpleCard: React.FC<SimpleCardProps> = ({ imageUrl, title, date, id, onPress }) => {
     const navigation = useNavigation<any>()
     return (
-        <TouchableOpacity onPress={() => navigation?.navigate("EventDetailStack", { screen: "eventDetail", params: { eventId: id }, })}>
+        <TouchableOpacity onPress={() => onPress ? onPress(): navigation?.navigate("EventDetailStack", { screen: "eventDetail", params: { eventId: id }, })}>
             <View style={styles.root}>
                 <Image loadingIndicatorSource={{uri: "https://www.citypng.com/public/uploads/preview/loading-load-icon-transparent-png-11639609114lctjenyas8.png"}} style={{ width: 79, height: 92, borderRadius: 8 }} source={imageUrl ? { uri: imageUrl } : Img} />
                 <View style={styles.content}>

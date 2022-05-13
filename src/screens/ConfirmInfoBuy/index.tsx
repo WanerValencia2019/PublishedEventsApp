@@ -31,7 +31,7 @@ const ConfirmInfoBuy = ({ route, }: any) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        setValue('fullName', user ? user.firstName + ' ' + user.lastName : '');
+        setValue('fullName', user.firstName ? user.firstName + ' ' + user.lastName : '');
         setValue('email', user.email || '');
         setValue('identification', user.identification || '')
     }, [])

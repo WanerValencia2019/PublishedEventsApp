@@ -16,6 +16,10 @@ import CreateEvent from '../screens/createEvent';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import EditProfile from '../screens/editProfile';
 import { fonts, headers } from '../constants/Texts';
+import ListUserEvents from '../screens/ListUserEvents';
+import UserDetailEvent from '../screens/UserDetailEvent';
+import EventDetailMenu from '../screens/UserDetailEvent/detailMenu';
+import ListEventAssistants from '../screens/ListEventAssistants';
 
 const Tab = createBottomTabNavigator();
 
@@ -127,7 +131,56 @@ const ProfileStack = () => {
                     color: Colors.darkBlueText,
                 }
             }} />
+            <stack.Screen name="ListUserEvents" component={ListUserEvents} options={{
+                headerBackTitle: "Regresar", headerTitle: "Mis eventos", headerTitleStyle: {
+                    fontFamily: fonts.Roboto_500Medium,
+                    fontWeight: "500",
+                    fontSize: headers.h5,
+                    color: Colors.darkBlueText,
+                }
+            }} />
+            <stack.Screen name='UserDetailEvent' component={UserDetailEvent} options={{ header: customHeaderDetailEvent }} />
+            <stack.Screen name="ListEventAssistants" component={ListEventAssistants} options={{
+                headerBackTitle: "Regresar", headerTitle: "Asistentes" }} />
         </stack.Navigator>
     )
 }
 
+
+const customHeaderDetailEvent = (pr: any) => {
+    const { route } = pr;
+    return (
+        <View style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            backgroundColor: "white",
+            elevation: 10,
+            borderBottomWidth: 1,
+            borderBottomColor: Colors.darkGray,
+            paddingTop: 35,
+            paddingBottom: 15,
+            paddingLeft: 10,
+            paddingRight: 10,
+        }}>
+            <TouchableOpacity
+                onPress={() => pr.navigation.goBack()}
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}
+            >
+                <Icon size={28} type="material-community" name={"arrow-left"} color="black" />
+            </TouchableOpacity>
+            <Text style={{
+                fontFamily: fonts.Roboto_500Medium,
+                fontWeight: "500",
+                fontSize: headers.h5,
+                color: Colors.darkBlueText,
+            }}>Detalle del evento</Text>
+
+            <EventDetailMenu eventId={route?.params?.eventId}  />
+        </View>
+    );
+}

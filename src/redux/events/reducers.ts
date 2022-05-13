@@ -5,6 +5,10 @@ import { eventInitialType } from ".";
 export const listEventsReducer = (state: eventInitialType, action: any)  => {
     state.list = action.payload.list;
 }
+export const listMyEventsReducer = (state: eventInitialType, action: any)  => {
+    state.myEvents = action.payload.list;
+}
+
 export const listNextEventsReducer = (state: eventInitialType, action: any)  => {
     state.nextEvents = action.payload.list;
 }

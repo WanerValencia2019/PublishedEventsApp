@@ -63,6 +63,51 @@ export const getAllEvents = createAsyncThunk(
   }
 );
 
+export const getMyEvents = createAsyncThunk(
+  "events/myevents-list",
+  async (props, { dispatch, getState }:any) => {
+    const { token } = getState().auth;
+
+    if(!token) {
+      return dispatch({
+        type: EventTypes.listMyEventsFailed,
+        payload: {
+          message: "Usuario no autenticado",
+        },
+      });
+    }    
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    }
+
+    dispatch(startLoading());
+    axiosInstance(dispatch)
+      .get("/events/", { headers })
+      .then((res: AxiosResponse) => {
+        const { data } = res.data;
+        return dispatch({
+          type: EventTypes.listMyEventsSuccess,
+          payload: {
+            list: data,
+          },
+        });
+      })
+      .catch((error: AxiosError) => {
+        console.log(error);
+        return dispatch({
+          type: EventTypes.listMyEventsFailed,
+          payload: {
+            message: "Error en los eventos",
+          },
+        });
+      }
+      )
+      .finally(() => dispatch(stopLoading()));
+  }
+);
+
+
 interface nearEventsParams {
   latitude: number;
   longitude: number;
