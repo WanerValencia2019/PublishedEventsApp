@@ -25,7 +25,7 @@ const MenuOptions = () => {
           visible={visible}
           onDismiss={closeMenu}
           anchor={<Icon onPress={openMenu} type="material-community" name="dots-vertical" />}>
-        
+          <Menu.Item onPress={() => {}} title="Perfil de pagos" icon="billing" titleStyle={{fontSize: paragraphs.pMedium}}  />
           <Menu.Item onPress={() => {}} title="Configuración" icon="cog-outline" titleStyle={{fontSize: paragraphs.pMedium}}  />
           <Divider />
           <Menu.Item onPress={logoutUser} title="Cerrar sesión" titleStyle={{fontSize: paragraphs.pMedium}}  icon="logout" />

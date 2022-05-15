@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
+import { Icon } from 'react-native-elements';
 const { width, height } = Dimensions.get('screen');
 
 
@@ -22,7 +23,7 @@ const calcularDelta = (longitud: any, latitud: any, accuracy: any) => {
     };
 };
 
-function MapShow({ events }: any) {
+function MapShow({ events, pressMarker=()=>null, pressMap=()=>null }: any) {
     const [error, setError] = useState('No hay coordenadas,Por favor verifica tu conexión');
     const [region, setRegion] = useState<any>(null);
     const [markers, setMarkers] = useState<any>(null);
@@ -87,6 +88,11 @@ function MapShow({ events }: any) {
                 5
             );
             const marker: any = {
+                id: event?.id,
+                sell_limit_date: event?.sell_limit_date,
+                start_date: event?.start_date,
+                image: event?.image?.image,
+                end_date: event?.end_date,
                 title: event?.title,
                 coordinate: {
                     longitude: Number(event?.longitude),
@@ -99,9 +105,6 @@ function MapShow({ events }: any) {
         })
         setMarkers(marks);
     }, [events])
-    console.log('====================================');
-    console.log(region);
-    console.log('====================================');
 
     return (
         <View style={styles.container}>
@@ -117,10 +120,11 @@ function MapShow({ events }: any) {
                         showsUserLocation={true}
                         initialRegion={region}
                         region={region}
+                        onPress={pressMap}
                     >
                         {markers &&
                             markers.map((marker: any, i: any) => {
-                                return <Marker key={i} coordinate={{...marker.coordinate}} title={marker?.title} ></Marker>;
+                                return <Marker onPress={()=>pressMarker(marker)} children={<Icon type="material-community" size={width*0.085}  name="google-maps" color={new Date(marker?.sell_limit_date) < new Date() ? 'red':'green'} />}   key={i} coordinate={{...marker.coordinate}} title={marker?.title} ></Marker>;
                             })}
 
                     </MapView>

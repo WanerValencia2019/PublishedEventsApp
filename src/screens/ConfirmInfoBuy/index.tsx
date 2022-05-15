@@ -11,6 +11,8 @@ import axiosInstance from '../../helpers/axiosInstance';
 import { startLoading, stopLoading } from '../../redux/loading/actions';
 import WebView from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
+import { AxiosError } from 'axios';
+import { showToast } from '../../redux/toast/actions';
 
 interface confirmInfoBuyFormProps {
     fullName: string,
@@ -46,17 +48,42 @@ const ConfirmInfoBuy = ({ route, }: any) => {
             ticket_type_id: ticket_id,
             ticket_quantity: quantity,
         }
+        if(unit_price > 0) {
+            dispatch(startLoading())
+            axiosInstance().post("/payment", data_to_send,)
+                .then(res => {
+                    const { data } = res;
+                    console.log('====================================');
+                    console.log(data);
+                    console.log('====================================');
+                    //setUrl(data.next_url);
+                    navigation.navigate("eventPayWebView", { url: data.next_url });
+                })
+                .catch((err:AxiosError) => {
+                    console.log(err.response?.status);
+                    console.log(err.response?.headers);
+                    
+                })
+                .finally(() => dispatch(stopLoading()))
+        }else {
+            dispatch(startLoading())
+            axiosInstance().post("/payment/free", data_to_send,)
+                .then(res => {
+                    const { data } = res;
+                    console.log('====================================');
+                    console.log("PAGO GRATIS");
+                    console.log(data);
+                    console.log('====================================');
+                    dispatch(showToast({ message: "Pago realizado con éxito", type: "success" }));
+                    navigation.navigate("Drawer");
+                })
+                .catch((err:AxiosError) => {
+                    console.log(err.response?.status);
+                    console.log(err.response?.headers);
+                })
+                .finally(() => dispatch(stopLoading())) 
+        }
 
-        dispatch(startLoading())
-        axiosInstance().post("/payment", data_to_send)
-            .then(res => {
-                const { data } = res;
-                //setUrl(data.next_url);
-                navigation.navigate("eventPayWebView", { url: data.next_url });
-            })
-            .catch(err => console.log(err)
-            )
-            .finally(() => dispatch(stopLoading()))
     }
 
     return (

@@ -12,6 +12,7 @@ import { calcularDelta } from '../../utils';
 import * as Location from 'expo-location';
 
 import styles from './styles';
+import VerifyTicket from '../verifyTicket';
 
 export default function Home({ navigation }: any) {
   const dispatch = useAppDispatch();
@@ -20,6 +21,8 @@ export default function Home({ navigation }: any) {
   const [mapError, setMapError] = useState<string>('');
   const [longitude, setLongitude] = useState<number>(0);
   const [latitude, setLatitude] = useState<number>(0);
+
+  const [visible, setVisible]= useState(false);
 
   const getEvents = () => {
     dispatch(getAllNextEvents())
@@ -64,6 +67,10 @@ export default function Home({ navigation }: any) {
     getEvents()
   }, [id_log])
 
+  const showVerifyTicket = () => {
+    setVisible(true);
+  }
+
   return (
     <ScrollView style={styles.root}
       refreshControl={
@@ -73,7 +80,7 @@ export default function Home({ navigation }: any) {
         />
       }
     >
-      <HeaderHome navigation={navigation} />
+      <HeaderHome clickRightIcon={showVerifyTicket} navigation={navigation} />
       <View style={styles.wrapperUpcomingEvents}>
         <View style={styles.wrapperUpcomingEventHeader}>
           <Text style={styles.wrapperUpcomingEventTitle}>Próximos eventos</Text>
@@ -109,6 +116,7 @@ export default function Home({ navigation }: any) {
           }
         </ScrollView>
       </View>
+      <VerifyTicket visible={visible} setVisible={setVisible} />
     </ScrollView>
   );
 }

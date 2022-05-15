@@ -34,9 +34,6 @@ const EventDetail = (props: any) => {
         fetchData();
     }, [])
 
-    console.log('====================================');
-    console.log(paymentResult);
-    console.log('====================================');
 
     return (
         <View style={styles.root}>
@@ -50,6 +47,19 @@ const EventDetail = (props: any) => {
                 <View style={styles.wrapperDescription}>
                     <Text style={styles.sectionTitle}>Descripción</Text>
                     <Text style={styles.description}>{event?.description}</Text>
+                </View>
+                <View style={{ paddingLeft: 20, marginTop: 7, marginBottom: 8 }}>
+                    <Text style={styles.sectionTitle}>Fecha limite de venta</Text>
+                    <View style={styles.wrapperDates}>
+                        <View style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                            <Icon type='material-community' name='calendar-outline' color={Colors.blue}
+                                style={{ padding: 5 }} />
+                            <View>
+                                <Text style={{...styles.dateText, color: new Date(event?.sell_limit_date) < new Date() ? 'red':"green"}}>{dayjs(event?.sell_limit_date).format("DD [de] MMMM, YYYY")}</Text>
+                                <Text style={{...styles.timeText, color: new Date(event?.sell_limit_date) < new Date() ? 'red':"green"}}>{dayjs(event?.sell_limit_date).format("h:mm A")}</Text>
+                            </View>
+                        </View>
+                    </View>
                 </View>
                 <View style={{ paddingLeft: 20, marginTop: 7 }}>
                     <Text style={styles.sectionTitle}>Fecha de inicio</Text>
@@ -96,7 +106,7 @@ const EventDetail = (props: any) => {
                 }
             </ScrollView>
             <View style={styles.wrapperBottomView}>
-                <FAB onPress={()=> navigation.navigate("EventDetailStack", {screen: "eventTicketTypes", params: {event: event}})} title="Reservar entrada" color={Colors.blue} iconPosition='right' icon={<Icon type='material-community' name='ticket' color={Colors.light.background} />} />
+                <FAB disabled={new Date(event?.sell_limit_date) < new Date()} onPress={()=> navigation.navigate("EventDetailStack", {screen: "eventTicketTypes", params: {event: event}})} title="Reservar entrada" color={Colors.blue} iconPosition='right' icon={<Icon type='material-community' name='ticket' color={Colors.light.background} />} />
             </View>
         </View>
     )

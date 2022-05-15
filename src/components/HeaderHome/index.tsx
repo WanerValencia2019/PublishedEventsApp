@@ -10,7 +10,7 @@ import Colors from '../../constants/Colors';
 import { Chip, SearchBar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 
-export default function HeaderHome({ navigation }: any) {
+export default function HeaderHome({ navigation, clickRightIcon = () => null }: any) {
     const [city, setCity] = useState("current")
 
     const [search, setSearch] = useState("")
@@ -37,7 +37,7 @@ export default function HeaderHome({ navigation }: any) {
                     <Picker.Item label="Bógota" value="bogota" />
                     <Picker.Item label="Cartagena" value="cartagena" />
                 </Picker>
-                <NotificationIcon width={50} height={20} />
+                <NotificationIcon onPress={clickRightIcon} width={50} height={20} />
             </View>
             <View>
                 <SearchBar style={{ borderColor: "transparent", color: "#ffffff", }} containerStyle={{ backgroundColor: "transparent", borderTopWidth: 0,borderBottomWidth: 0,  }} inputContainerStyle={{ backgroundColor: "transparent" }} value={search} onChangeText={(e) => setSearch(e)} lightTheme placeholder='Buscar...' />
