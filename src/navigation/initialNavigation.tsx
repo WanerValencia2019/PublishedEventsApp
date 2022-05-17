@@ -20,6 +20,7 @@ import ListUserEvents from '../screens/ListUserEvents';
 import UserDetailEvent from '../screens/UserDetailEvent';
 import EventDetailMenu from '../screens/UserDetailEvent/detailMenu';
 import ListEventAssistants from '../screens/ListEventAssistants';
+import BillingProfile from '../screens/billingProfile';
 
 const Tab = createBottomTabNavigator();
 
@@ -142,6 +143,8 @@ const ProfileStack = () => {
             <stack.Screen name='UserDetailEvent' component={UserDetailEvent} options={{ header: customHeaderDetailEvent }} />
             <stack.Screen name="ListEventAssistants" component={ListEventAssistants} options={{
                 headerBackTitle: "Regresar", headerTitle: "Asistentes" }} />
+           <stack.Screen name="BillingProfile" component={BillingProfile} options={{
+                headerBackTitle: "Regresar", headerTitle: "Perfil de pagos" }} />
         </stack.Navigator>
     )
 }
