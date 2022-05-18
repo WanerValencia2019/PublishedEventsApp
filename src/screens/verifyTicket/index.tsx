@@ -65,14 +65,14 @@ const VerifyTicket: React.FC<VerifyTicketProps> = ({ setVisible, visible }) => {
               message: "Este campo es requerido"
             },
             minLength: {
-              value: 6,
+              value: 8,
               message: "El código debe tener 6 caracteres"
             }
           }}
           name='ticket'
           render={({ field }) => (
             <Input {...field}
-              label="Código(Últimos 6 caracteres)"
+              label="Código(Últimos 8 caracteres)"
               onChangeText={(text) => {
                 setValue("ticket", text)
                 setAssistant({});

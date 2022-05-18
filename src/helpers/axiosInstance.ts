@@ -1,11 +1,11 @@
 import { AppDispatch } from "../redux";
-import { API_URL } from "@env";
+import { PRODUCTION_API_URL, LOCAL_API_URL } from "@env";
 import { Axios, AxiosRequestHeaders } from "axios";
 
 import axios from "axios";
 
 
-const baseURL = API_URL;
+const baseURL = PRODUCTION_API_URL;
 
 export default function (dispatch?: any, token?: string):Axios  {
     const headers: AxiosRequestHeaders = {};

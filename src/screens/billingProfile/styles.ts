@@ -9,8 +9,8 @@ export default StyleSheet.create({
     wrapperMoneyContainer: {
         paddingLeft: 20,
         paddingRight: 20,
-        paddingTop: 10,
-        paddingBottom: 10,
+        paddingTop: 17,
+        paddingBottom: 17,
         marginLeft:10,
         marginRight:10,
         backgroundColor: Colors.blue,
@@ -24,12 +24,12 @@ export default StyleSheet.create({
     },
     moneyAvailableTitle: {
         color: Colors.light.background,
-        fontSize: headers.h4,
+        fontSize: headers.h5,
         fontFamily: fonts.Roboto_500Medium_Italic,
     },
     moneyAvailable: {
      color: Colors.light.background,
-        fontSize: headers.h3,
+        fontSize: headers.h4,
         fontFamily: fonts.Roboto_500Medium_Italic,
     },
     moneyWithdrawTitle: {
@@ -51,6 +51,18 @@ export default StyleSheet.create({
     historyContainer: {
         paddingLeft: 20,
         paddingRight: 20,
-    } 
+    },
+    statusPending :{
+        color: Colors.darkBlueText, 
+        fontFamily: fonts.Roboto_400Regular,
+    },
+    statusRejected :{
+        color: "red",
+        fontFamily: fonts.Roboto_400Regular,
+    },
+    statusAccepted: {
+        color: "green",
+        fontFamily: fonts.Roboto_400Regular,
+    }
 
 })
