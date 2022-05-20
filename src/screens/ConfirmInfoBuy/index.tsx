@@ -62,7 +62,9 @@ const ConfirmInfoBuy = ({ route, }: any) => {
                 .catch((err:AxiosError) => {
                     console.log(err.response?.status);
                     console.log(err.response?.headers);
-                    
+                    console.log('====================================');
+                    console.log(err.response?.data);
+                    console.log('====================================');
                 })
                 .finally(() => dispatch(stopLoading()))
         }else {

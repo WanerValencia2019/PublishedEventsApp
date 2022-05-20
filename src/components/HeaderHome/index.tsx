@@ -7,20 +7,23 @@ import NotificationIcon from "../../../assets/images/notificationIcon.svg";
 import styles from './styles';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import Colors from '../../constants/Colors';
-import { Chip, SearchBar } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
+import { Chip, Icon, SearchBar } from 'react-native-elements';
+
+
+const chipColors = [
+    "#F59762",
+    "#F0635A",
+    "#29D697",
+    "#46CDFB",
+    Colors.darkBlueText
+]
 
 export default function HeaderHome({ navigation, clickRightIcon = () => null }: any) {
     const [city, setCity] = useState("current")
 
     const [search, setSearch] = useState("")
 
-    const chipColors = [
-        "#F59762",
-        "#F0635A",
-        "#29D697",
-        "#46CDFB"
-    ]
+
 
     return (
         <View style={styles.root}>
@@ -30,14 +33,15 @@ export default function HeaderHome({ navigation, clickRightIcon = () => null }: 
                     mode='dialog'
                     style={{ width: 150, marginTop: -20, color: Colors.light.background }}
                     dropdownIconColor="white"
-                    selectedValue={city} onValueChange={(e) => setCity(e)}>
+                    selectedValue={city} 
+                    onValueChange={(e) => setCity(e)}>
                     <Picker.Item label="Quibdó" value="current" />
                     <Picker.Item label="Barranquilla" value="barranquilla" />
                     <Picker.Item label="Medellín" value="medellin" />
                     <Picker.Item label="Bógota" value="bogota" />
                     <Picker.Item label="Cartagena" value="cartagena" />
                 </Picker>
-                <NotificationIcon onPress={clickRightIcon} width={50} height={20} />
+                <Icon onPress={clickRightIcon} type='material-community' name='barcode-scan' size={25}  color="white"/>
             </View>
             <View>
                 <SearchBar style={{ borderColor: "transparent", color: "#ffffff", }} containerStyle={{ backgroundColor: "transparent", borderTopWidth: 0,borderBottomWidth: 0,  }} inputContainerStyle={{ backgroundColor: "transparent" }} value={search} onChangeText={(e) => setSearch(e)} lightTheme placeholder='Buscar...' />
