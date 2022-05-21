@@ -21,6 +21,7 @@ import UserDetailEvent from '../screens/UserDetailEvent';
 import EventDetailMenu from '../screens/UserDetailEvent/detailMenu';
 import ListEventAssistants from '../screens/ListEventAssistants';
 import BillingProfile from '../screens/billingProfile';
+import MyCalendar from '../screens/calendar';
 
 const Tab = createBottomTabNavigator();
 
@@ -45,10 +46,11 @@ export default function BottomTabs() {
                     ...tabBarScreenOptions("home-circle-outline")
                 })}
             />
-            <Tab.Screen name="Events" component={Events}
+            <Tab.Screen name="EventStack" component={EventStack}
                 options={({ navigation, route }) => ({
                     title: 'Eventos',
-                    ...tabBarScreenOptions("calendar")
+                    ...tabBarScreenOptions("calendar"),
+                
                 })
                 }
             />
@@ -119,6 +121,14 @@ const CustomBottomComponent: React.FC<BottomTabBarButtonProps> = ({ children, on
 
 const stack = createNativeStackNavigator();
 
+const EventStack = () => {
+    return (
+        <stack.Navigator initialRouteName="Events" >
+            <stack.Screen name="Events" component={Events} options={{headerShown: false}}  />
+            <stack.Screen name="Calendar" component={MyCalendar} options={{header:CustomHeaderCalendar}} />
+        </stack.Navigator>
+    )
+}
 
 const ProfileStack = () => {
     return (
@@ -149,6 +159,48 @@ const ProfileStack = () => {
     )
 }
 
+
+const CustomHeaderCalendar = (pr:any) => {
+    const { route } = pr;
+    return (
+        <View style={{
+            flexDirection: "row",
+            alignItems: "center",
+            paddingTop: 35,
+            paddingBottom: 15,
+            marginBottom: 5,
+            paddingLeft: 10,
+            paddingRight: 10,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 18,
+              height: 12,
+            },
+            shadowOpacity: 0.58,
+            shadowRadius: 16.0,
+            elevation: 1,
+        }}>
+            <TouchableOpacity
+                onPress={() => pr.navigation.navigate("Events")}
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}
+            >
+                <Icon size={28} type="material-community" name={"arrow-left"} color="black" />
+            </TouchableOpacity>
+            <Text style={{
+                fontFamily: fonts.Roboto_500Medium,
+                fontWeight: "500",
+                fontSize: headers.h5,
+                color: Colors.darkBlue,
+                marginLeft: 10
+            }}>Mi calendario</Text>
+
+        </View>
+    );
+}
 
 const customHeaderDetailEvent = (pr: any) => {
     const { route } = pr;

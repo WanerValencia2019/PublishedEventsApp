@@ -86,19 +86,19 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = ({ navigation, descr
                     <Icon type='material-community' name='account-outline' color={Colors.darkGray} />
                     <Text style={styles.textItem}>Mi perfil</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.containerTouchable}>
+                <TouchableOpacity onPress={()=> navigation.navigate("ComingSoonStack",{ screen:"ComingSoon" })} style={styles.containerTouchable}>
                     <Icon type='material-community' name='comment-outline' color={Colors.darkGray} />
                     <Text style={styles.textItem}>Mensajes</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.containerTouchable}>
+                <TouchableOpacity onPress={()=> navigation.navigate("EventStack", { screen: "Calendar" })} style={styles.containerTouchable}>
                     <Icon type='material-community' name='calendar' color={Colors.darkGray} />
                     <Text style={styles.textItem}>Calendario</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.containerTouchable}>
+                <TouchableOpacity onPress={()=> navigation.navigate("ComingSoonStack",{ screen:"ComingSoon" })} style={styles.containerTouchable}>
                     <Icon type='material-community' name='cog-outline' color={Colors.darkGray} />
                     <Text style={styles.textItem}>Configuraciones</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.containerTouchable}>
+                <TouchableOpacity onPress={()=> navigation.navigate("ComingSoonStack",{ screen:"ComingSoon" })} style={styles.containerTouchable}>
                     <Icon type='material-community' name='help-circle-outline' color={Colors.darkGray} />
                     <Text style={styles.textItem}>Preguntas frecuentes</Text>
                 </TouchableOpacity>

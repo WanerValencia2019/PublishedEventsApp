@@ -11,7 +11,7 @@ export interface AuthTypeData {
     email: string;
     imageUrl?: string,
     description?: string,
-    identification?: string,
+    identification: string,
     image?:string,
   };
   token: any;

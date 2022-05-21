@@ -4,6 +4,7 @@ import { EventTypes } from "../actionTypes";
 import {
   listCategoriesReducer,
   listEventsReducer,
+  listMyAssistsReducer,
   listMyEventsReducer,
   listNearEventsReducer,
   listNextEventsReducer,
@@ -51,6 +52,7 @@ export interface eventInitialType {
   myEvents: Array<any>;
   nearEvents: Array<any>;
   newEvent: newEventTypes;
+  myAssists: Array<any>;
   categories: Array<{ id: string; name: string; description: string }>;
   id_log?: string;
 }
@@ -60,6 +62,7 @@ const initialState: eventInitialType = {
   nextEvents: [],
   nearEvents: [],
   myEvents: [],
+  myAssists: [],
   newEvent: {
     info: {
       title: "",
@@ -111,6 +114,8 @@ const createEventAction = createAction<eventInitialType>(EventTypes.createEventS
 
 const listMyEventsAction = createAction<eventInitialType>(EventTypes.listMyEventsSuccess);
 
+const listMyAssistsAction = createAction<eventInitialType>(EventTypes.listMyAssistsSuccess);
+
 export default createReducer(initialState, (builder) => {
   builder.addCase(listEventsAction, listEventsReducer);
   builder.addCase(listMyEventsAction, listMyEventsReducer);
@@ -126,4 +131,5 @@ export default createReducer(initialState, (builder) => {
     state.newEvent = initialState.newEvent;
     state.id_log = generateString()
   });
+  builder.addCase(listMyAssistsAction, listMyAssistsReducer);
 });

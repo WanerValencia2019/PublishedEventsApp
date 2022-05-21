@@ -37,6 +37,8 @@ export const EventTypes = {
     listNextEventSuccess: "event/list-next-event-success",
     listMyEventsSuccess: "event/list-my-events-success",
     listMyEventsFailed: "event/list-my-events-failed",
+    listMyAssistsSuccess: "event/list-my-assists-success",
+    listMyAssistsFailed: "event/list-my-assists-failed",
 }
 
 export const ToastTypes = {

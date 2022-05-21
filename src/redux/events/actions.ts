@@ -8,12 +8,16 @@ import { showToast } from "../toast/actions";
 
 import axiosInstance from "./../../helpers/axiosInstance";
 
+interface GetAllEventsProps {
+  search?: string;
+}
+
 export const getAllNextEvents = createAsyncThunk(
   "events/list",
-  async (props, { dispatch }) => {
+  async ({ search = '' }:GetAllEventsProps, { dispatch }) => {
     dispatch(startLoading());
     axiosInstance(dispatch)
-      .get("/events/list?status=active")
+      .get(`/events/list?status=active&search=${search}`)
       .then((res: AxiosResponse) => {
         const { data } = res.data;
         return dispatch({
@@ -35,12 +39,18 @@ export const getAllNextEvents = createAsyncThunk(
       .finally(() => dispatch(stopLoading()));
   }
 );
+
+
+interface GetAllEventsProps {
+  search?: string;
+}
+
 export const getAllEvents = createAsyncThunk(
   "events/list",
-  async (props, { dispatch }) => {
+  async ({ search = ''}:GetAllEventsProps, { dispatch }) => {
     dispatch(startLoading());
     axiosInstance(dispatch)
-      .get("/events/list/")
+      .get("/events/list?search=" + search)
       .then((res: AxiosResponse) => {
         const { data } = res.data;
         return dispatch({
@@ -376,6 +386,49 @@ export const createEvent = createAsyncThunk(
           type: EventTypes.createEventFailed,
           payload: {
             message: "Error en el evento",
+          },
+        });
+      })
+      .finally(() => dispatch(stopLoading()));
+  }
+);
+
+interface IlistMyAssistance {
+  identification: string;
+}
+
+export const listMyAssists = createAsyncThunk(
+  "events/list-assists",
+  async ({  identification = '' }:IlistMyAssistance, { dispatch, getState }:any) => {
+    dispatch(startLoading());
+
+    const auth = getState().auth;
+
+    const headers = {
+      ContentType: "application/json",
+      Authorization: `Bearer ${auth.token}`,
+    }
+
+
+
+    axiosInstance(dispatch)
+      .get(`/events/assistant/me?identification=${identification}`, { headers })
+      .then((res: AxiosResponse) => {
+        const { data } = res.data;
+        return dispatch({
+          type: EventTypes.listMyAssistsSuccess,
+          payload: {
+            data,
+          },
+        });
+      })
+      .catch((error: AxiosError) => {
+        console.log(error);
+        dispatch(showToast({message: "Verifica tu identificación, en el perfil", type: "error"}));
+        return dispatch({
+          type: EventTypes.listMyAssistsFailed,
+          payload: {
+            message: "Error en las asistencias",
           },
         });
       })

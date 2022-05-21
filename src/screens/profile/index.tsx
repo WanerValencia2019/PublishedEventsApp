@@ -6,7 +6,7 @@ import styles from "./styles";
 import { loadProfile, logout } from '../../redux/auth/actions';
 import { Avatar, Button, Icon } from 'react-native-elements';
 import Colors from '../../constants/Colors';
-import { fonts, paragraphs } from '../../constants/Texts';
+import { fonts, headers, paragraphs } from '../../constants/Texts';
 import MenuOptions from './menuOptions';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -45,7 +45,7 @@ const Profile = (props: { navigation: any }) => {
     if (!auth.isAuthenticated && !auth.token) {
         return (
             <View style={styles.notLogin}>
-                <Text>No estas logueado</Text>
+                <Text style={{fontSize: headers.h5, marginBottom: 10}}>No estás autenticado</Text>
                 <Button title="Iniciar sesión" onPress={redirectToLogin} />
             </View>
         )

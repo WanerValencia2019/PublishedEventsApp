@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getCategories, newEventInfoUpdate } from '../../redux/events/actions';
 import { Controller, useForm } from 'react-hook-form';
 import { showToast } from '../../redux/toast/actions';
+import useEffectOnce from '../../hooks/useEffectOnce';
 
 const { width } = Dimensions.get("screen");
 
@@ -28,6 +29,10 @@ const InfoStep = ({ handleBack, handleNext }: any) => {
     useEffect(() => {
         dispatch(getCategories())
     }, [newEvent])
+
+    useEffectOnce(() => {
+        dispatch(showToast({message:"La cantidad entradas se establece automáticamente, con las entradas!", type:"info"}));
+    })
 
     useEffect(() => {
         console.log(newEvent.info);

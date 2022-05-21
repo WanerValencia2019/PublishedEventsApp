@@ -25,6 +25,9 @@ export type RootStackParamList = {
   eventTicketTypes: undefined;
   eventConfirmInfoBuy: undefined;
   eventPayWebView: undefined;
+  ComingSoon: undefined;
+  ComingSoonStack: undefined;
+  Calendar: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

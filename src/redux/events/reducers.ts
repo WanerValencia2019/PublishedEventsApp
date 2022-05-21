@@ -64,3 +64,7 @@ export const newEventAddTicketReducer = (state: eventInitialType, action: any)  
     state.newEvent.tickets = [...state.newEvent.tickets, action.payload];
     state.newEvent.info.space_availables += action.payload.quantity;
 }
+
+export const listMyAssistsReducer = (state: eventInitialType, action: any)  => {
+    state.myAssists = action.payload.data;
+}

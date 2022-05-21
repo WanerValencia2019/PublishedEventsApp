@@ -25,7 +25,7 @@ export default function Home({ navigation }: any) {
   const [visible, setVisible]= useState(false);
 
   const getEvents = () => {
-    dispatch(getAllNextEvents())
+    dispatch(getAllNextEvents({ search: '' }));
     dispatch(getNearEvents({ latitude, longitude }))
   }
 
@@ -71,6 +71,10 @@ export default function Home({ navigation }: any) {
     setVisible(true);
   }
 
+  const handleSearch = (value: string) => {
+    dispatch(getAllNextEvents({ search: value }))
+  }
+
   return (
     <ScrollView style={styles.root}
       refreshControl={
@@ -80,7 +84,7 @@ export default function Home({ navigation }: any) {
         />
       }
     >
-      <HeaderHome clickRightIcon={showVerifyTicket} navigation={navigation} />
+      <HeaderHome handleSearch={handleSearch} clickRightIcon={showVerifyTicket} navigation={navigation} />
       <View style={styles.wrapperUpcomingEvents}>
         <View style={styles.wrapperUpcomingEventHeader}>
           <Text style={styles.wrapperUpcomingEventTitle}>Próximos eventos</Text>

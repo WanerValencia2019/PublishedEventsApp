@@ -18,11 +18,15 @@ const chipColors = [
     Colors.darkBlueText
 ]
 
-export default function HeaderHome({ navigation, clickRightIcon = () => null }: any) {
+export default function HeaderHome({ navigation,handleSearch, clickRightIcon = () => null }: any) {
     const [city, setCity] = useState("current")
 
     const [search, setSearch] = useState("")
 
+    const onSearch = (text:string) => {
+        setSearch(text);
+        handleSearch && handleSearch(text);
+    }
 
 
     return (
@@ -44,15 +48,15 @@ export default function HeaderHome({ navigation, clickRightIcon = () => null }: 
                 <Icon onPress={clickRightIcon} type='material-community' name='barcode-scan' size={25}  color="white"/>
             </View>
             <View>
-                <SearchBar style={{ borderColor: "transparent", color: "#ffffff", }} containerStyle={{ backgroundColor: "transparent", borderTopWidth: 0,borderBottomWidth: 0,  }} inputContainerStyle={{ backgroundColor: "transparent" }} value={search} onChangeText={(e) => setSearch(e)} lightTheme placeholder='Buscar...' />
+                <SearchBar style={{ borderColor: "transparent", color: "#ffffff", }} containerStyle={{ backgroundColor: "transparent", borderTopWidth: 0,borderBottomWidth: 0,  }} inputContainerStyle={{ backgroundColor: "transparent" }} value={search} onChangeText={onSearch} lightTheme placeholder='Buscar...' />
             </View>
-            <ScrollView showsHorizontalScrollIndicator={false} horizontal  style={styles.wrapperCategories}>
-                <Chip  buttonStyle={{backgroundColor: chipColors[Math.floor(Math.random() * (3 - 0)) + 0]}}  title="Cultura"  TouchableComponent={TouchableOpacity } containerStyle={styles.chipContainer} />
-                <Chip buttonStyle={{backgroundColor: chipColors[Math.floor(Math.random() * (3 - 0)) + 0]}} title="Deporte" TouchableComponent={TouchableOpacity} containerStyle={styles.chipContainer}  />
-                <Chip buttonStyle={{backgroundColor: chipColors[Math.floor(Math.random() * (3 - 0)) + 0]}} title="Música"  TouchableComponent={TouchableOpacity} containerStyle={styles.chipContainer} />
-                <Chip buttonStyle={{backgroundColor: chipColors[Math.floor(Math.random() * (3 - 0)) + 0]}} title="Comida" TouchableComponent={TouchableOpacity} containerStyle={styles.chipContainer} />
-                <Chip buttonStyle={{backgroundColor: chipColors[Math.floor(Math.random() * (3 - 0)) + 0]}} title="Salud"  TouchableComponent={TouchableOpacity} containerStyle={styles.chipContainer} />
-            </ScrollView>
+            { <ScrollView showsHorizontalScrollIndicator={false} horizontal  style={styles.wrapperCategories}>
+                <Chip  buttonStyle={{backgroundColor: chipColors[Math.floor(Math.random() * (4 - 0)) + 0]}}  title="Cultura"  TouchableComponent={TouchableOpacity } containerStyle={styles.chipContainer} />
+                <Chip buttonStyle={{backgroundColor: chipColors[Math.floor(Math.random() * (4 - 0)) + 0]}} title="Deporte" TouchableComponent={TouchableOpacity} containerStyle={styles.chipContainer}  />
+                <Chip buttonStyle={{backgroundColor: chipColors[Math.floor(Math.random() * (4 - 0)) + 0]}} title="Música"  TouchableComponent={TouchableOpacity} containerStyle={styles.chipContainer} />
+                <Chip buttonStyle={{backgroundColor: chipColors[Math.floor(Math.random() * (4 - 0)) + 0]}} title="Comida" TouchableComponent={TouchableOpacity} containerStyle={styles.chipContainer} />
+                <Chip buttonStyle={{backgroundColor: chipColors[Math.floor(Math.random() * (4 - 0)) + 0]}} title="Salud"  TouchableComponent={TouchableOpacity} containerStyle={styles.chipContainer} />
+            </ScrollView> }
         </View>
     );
 }

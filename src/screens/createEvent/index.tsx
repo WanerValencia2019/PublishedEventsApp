@@ -10,10 +10,13 @@ import PhotosStep from './photosStep';
 import AddressStep from './addressStep';
 import DateStep from './dateStep';
 import TicketStep from './ticketStep';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useNavigation } from '@react-navigation/native';
+import useEffectOnce from '../../hooks/useEffectOnce';
+import { showToast } from '../../redux/toast/actions';
 
 const CreateEvent = () => {
+  const dispatch = useAppDispatch();
   const steps = ["info", "photos", "tickets", "address", "dates",];
   const stepTitle: any = {
     info: "Información general",
@@ -46,6 +49,8 @@ const CreateEvent = () => {
     [step],
   )
 
+
+    
   const handleBack = useCallback(
     () => {
       const currentStepIndex = steps.indexOf(step);

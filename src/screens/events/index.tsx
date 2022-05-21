@@ -19,7 +19,12 @@ const Events = () => {
     }, [])
 
     const getEvents = () => {
-        dispatch(getAllEvents())
+        dispatch(getAllEvents({ search: search }));
+    }
+
+    const onSearch = (text:string) => {
+        setSearch(text)
+        dispatch(getAllEvents({search: text}))
     }
 
     return (
@@ -33,7 +38,7 @@ const Events = () => {
 
             style={styles.root}>
             <View>
-                <SearchBar containerStyle={{ backgroundColor: "transparent", borderTopWidth: 0, borderBottomWidth: 0, }} inputContainerStyle={{ backgroundColor: "transparent" }} value={search} onChangeText={(e) => setSearch(e)} lightTheme placeholder='Buscar...' />
+                <SearchBar containerStyle={{ backgroundColor: "transparent", borderTopWidth: 0, borderBottomWidth: 0, }} inputContainerStyle={{ backgroundColor: "transparent" }} value={search} onChangeText={onSearch} lightTheme placeholder='Buscar...' />
             </View>
             <ScrollView>
                 {
