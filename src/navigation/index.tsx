@@ -49,11 +49,12 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
         <Stack.Screen
           name="EventDetailStack"
           component={EventDetailNavigator}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="ComingSoonStack"
           component={OtherNavigator}
-          options={{ headerShown: false }}
+           options={{ headerTitle: "Coming Soon" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

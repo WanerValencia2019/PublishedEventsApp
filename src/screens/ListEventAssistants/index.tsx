@@ -18,12 +18,16 @@ const ListEventAssistants = ({ route }: any) => {
 
   useEffect(() => {
     dispatch(startLoading());
-    axiosInstance().get(`/events/${route.params.eventId}/assistants`)
+    axiosInstance().get(`/events/${route.params.eventId}/assistants`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    }) 
       .then((res) => {
         const { data } = res.data;
         setAssistants(data);
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err.response.data))
       .finally(() => dispatch(stopLoading()))
   }, [])
 
