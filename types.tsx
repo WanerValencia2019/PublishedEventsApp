@@ -28,6 +28,8 @@ export type RootStackParamList = {
   ComingSoon: undefined;
   ComingSoonStack: undefined;
   Calendar: undefined;
+  ContactUs: undefined;
+  ContactUsStack: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

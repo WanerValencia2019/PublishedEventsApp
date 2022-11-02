@@ -32,11 +32,11 @@ export default function DrawerNav() {
 
 
 const CustomDrawer: React.FC<DrawerContentComponentProps> = ({ navigation, descriptors, state, children }) => {
-    const  auth = useAppSelector(state => state.auth);
+    const auth = useAppSelector(state => state.auth);
     const dispatch = useAppDispatch();
 
     console.log(auth);
-    
+
 
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
@@ -56,7 +56,7 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = ({ navigation, descr
             }
             axiosInstance(null, auth.token).post('/user/update_image_profile/', data)
                 .then((res) => {
-                    dispatch(loadProfile({ token: auth.token}));
+                    dispatch(loadProfile({ token: auth.token }));
                 })
                 .catch((err) => dispatch(showToast({ message: err.response.data.message, type: 'error' })))
                 .finally(() => dispatch(stopLoading()));
@@ -68,7 +68,7 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = ({ navigation, descr
             <View style={styles.header}>
                 <Avatar size={60}
                     rounded
-                    source={ auth.user.imageUrl ?  { uri: auth.user.imageUrl }:null}
+                    source={auth.user.imageUrl ? { uri: auth.user.imageUrl } : null}
                     title={auth.user.firstName?.charAt(0) || "US"}
                     containerStyle={{ backgroundColor: Colors.blue }}
                 >
@@ -82,34 +82,43 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = ({ navigation, descr
                 }
             </View>
             <View style={styles.wrapperItems}>
-                <TouchableOpacity onPress={()=> navigation.navigate("Profile")} style={styles.containerTouchable}>
+                <TouchableOpacity onPress={() => navigation.navigate("Profile")} style={styles.containerTouchable}>
                     <Icon type='material-community' name='account-outline' color={Colors.darkGray} />
                     <Text style={styles.textItem}>Mi perfil</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=> navigation.navigate("ComingSoonStack",{ screen:"ComingSoon" })} style={styles.containerTouchable}>
+                <TouchableOpacity onPress={() => navigation.navigate("ComingSoonStack", { screen: "ComingSoon" })} style={styles.containerTouchable}>
                     <Icon type='material-community' name='comment-outline' color={Colors.darkGray} />
                     <Text style={styles.textItem}>Mensajes</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=> navigation.navigate("EventStack", { screen: "Calendar" })} style={styles.containerTouchable}>
+                <TouchableOpacity onPress={() => navigation.navigate("EventStack", { screen: "Calendar" })} style={styles.containerTouchable}>
                     <Icon type='material-community' name='calendar' color={Colors.darkGray} />
                     <Text style={styles.textItem}>Calendario</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=> navigation.navigate("ComingSoonStack",{ screen:"ComingSoon" })} style={styles.containerTouchable}>
+                <TouchableOpacity onPress={() => navigation.navigate("ComingSoonStack", { screen: "ComingSoon" })} style={styles.containerTouchable}>
                     <Icon type='material-community' name='cog-outline' color={Colors.darkGray} />
                     <Text style={styles.textItem}>Configuraciones</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=> navigation.navigate("ComingSoonStack",{ screen:"ComingSoon" })} style={styles.containerTouchable}>
+                <TouchableOpacity onPress={() => navigation.navigate("ComingSoonStack", { screen: "ComingSoon" })} style={styles.containerTouchable}>
                     <Icon type='material-community' name='help-circle-outline' color={Colors.darkGray} />
                     <Text style={styles.textItem}>Preguntas frecuentes</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.containerTouchable}>
+                <TouchableOpacity style={styles.containerTouchable} onPress={() => navigation.navigate("ContactUsStack", { screen: "ContactUs" })}>
                     <Icon type='material-community' name='email-outline' color={Colors.darkGray} />
                     <Text style={styles.textItem}>Contactanos</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=> dispatch(logout())}  style={{...styles.containerTouchable}}>
-                    <Icon type='material-community' name='logout' color={Colors.darkGray} />
-                    <Text style={styles.textItem}>Cerrar sesión</Text>
-                </TouchableOpacity>
+                {
+                    (auth.isAuthenticated && auth.token) ? (
+                        <TouchableOpacity onPress={() => dispatch(logout())} style={{ ...styles.containerTouchable }}>
+                            <Icon type='material-community' name='logout' color="red" />
+                            <Text style={{...styles.textItem, color: "red"}}>Cerrar sesión</Text>
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity style={{ ...styles.containerTouchable }} onPress={() => navigation.navigate("auth")}>
+                            <Icon type='material-community' name='login' color={Colors.darkGray} />
+                            <Text style={styles.textItem}>Iniciar sesión</Text>
+                        </TouchableOpacity>
+                    )
+                }
             </View>
         </View>
     );
@@ -139,9 +148,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 10,
     },
-    textItem:{
+    textItem: {
         fontFamily: fonts.Roboto_400Regular,
-        fontWeight:"400",
+        fontWeight: "400",
         fontSize: paragraphs.pMedium,
         color: Colors.darkBlue,
         marginLeft: 10

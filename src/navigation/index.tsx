@@ -18,6 +18,7 @@ import ViewTickets from '../screens/viewTickets';
 import ConfirmInfoBuy from '../screens/ConfirmInfoBuy';
 import PayWebView from '../screens/PayWebview';
 import ComingSoon from '../screens/ComingSoon';
+import ContactUs from '../screens/contactUs';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -43,7 +44,12 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
         <Stack.Screen
           name="ComingSoonStack"
           component={OtherNavigator}
-           options={{ headerTitle: "Coming Soon" }}
+          options={{ headerTitle: "Coming Soon" }}
+        />
+        <Stack.Screen
+          name="ContactUsStack"
+          component={ContactUSNavigator}
+          options={{ headerTitle: "Contactanos" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -56,13 +62,6 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-function RootNavigator() {
-  return (
-    <Stack.Navigator initialRouteName='initial'>
-      <Stack.Screen name='auth' component={Login} options={{ headerShown: true, headerBackTitle: "Retroceder", title: "", headerTransparent: true, }} />
-    </Stack.Navigator>
-  );
-}
 
 function EventDetailNavigator() {
   return (
@@ -78,8 +77,15 @@ function EventDetailNavigator() {
 function OtherNavigator() {
   return (
     <Stack.Navigator initialRouteName='ComingSoon'>
-      <Stack.Screen name='ComingSoon' component={ComingSoon} options={{ headerShown: false, headerBackVisible:true, headerBackTitle: 'Regresar' }} />
+      <Stack.Screen name='ComingSoon' component={ComingSoon} options={{ headerShown: false, headerBackVisible: true, headerBackTitle: 'Regresar' }} />
     </Stack.Navigator>
   );
 }
 
+function ContactUSNavigator() {
+  return (
+    <Stack.Navigator initialRouteName='ContactUs'>
+      <Stack.Screen name='ContactUs' component={ContactUs} options={{ headerShown: false, headerBackVisible: true, headerBackTitle: 'Regresar' }} />
+    </Stack.Navigator>
+  );
+}

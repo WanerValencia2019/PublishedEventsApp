@@ -2,7 +2,6 @@ import React from 'react';
 import { BottomTabBarButtonProps, BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Colors from '../constants/Colors';
 import Home from '../screens/home';
-import NotFoundScreen from '../screens/NotFoundScreen';
 
 import { Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -160,8 +159,8 @@ const ProfileStack = () => {
 }
 
 
-const CustomHeaderCalendar = (pr:any) => {
-    const { route } = pr;
+const CustomHeaderCalendar = (props:any) => {
+    const { route } = props;
     return (
         <View style={{
             flexDirection: "row",
@@ -181,7 +180,7 @@ const CustomHeaderCalendar = (pr:any) => {
             elevation: 1,
         }}>
             <TouchableOpacity
-                onPress={() => pr.navigation.navigate("Events")}
+                onPress={() => props.navigation.navigate("Events")}
                 style={{
                     display: "flex",
                     justifyContent: "center",
